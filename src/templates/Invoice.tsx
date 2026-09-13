@@ -8,7 +8,7 @@ const safeFormatDate = (dateStr: string | undefined | null, formatStr: string) =
   return isValid(d) ? format(d, formatStr) : '';
 };
 import { Stamp, Logo } from './shared';
-import { FileText, Phone, MapPin } from 'lucide-react';
+import { FileText, Phone, MapPin, Globe, Mail } from 'lucide-react';
 
 export const Invoice: React.FC = () => {
   const { data } = useAppContext();
@@ -90,12 +90,22 @@ export const Invoice: React.FC = () => {
                 </div>
             </div>
             
-            <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
-                    <Phone className="w-4 h-4 text-gray-700 fill-gray-700 stroke-gray-700" />
+            <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                        <Phone className="w-4 h-4 text-gray-700 fill-gray-700 stroke-gray-700" />
+                    </div>
+                    <div className="font-bold text-gray-900 leading-snug">9422939036</div>
                 </div>
-                <div className="font-bold text-gray-900 leading-snug">9422939036</div>
+                
+                <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center shrink-0">
+                        <Globe className="w-4 h-4 text-gray-700 stroke-gray-700" />
+                    </div>
+                    <div className="font-bold text-gray-900 leading-snug">www.rsbhandari.in</div>
+                </div>
             </div>
+
 
             <div className="flex items-start gap-3">
                 <div className="w-7 h-7 rounded-md bg-gray-100 flex items-center justify-center shrink-0 mt-0.5">
@@ -121,7 +131,7 @@ export const Invoice: React.FC = () => {
                  <span className="bg-yellow-500 text-white w-6 h-6 rounded-full flex items-center justify-center">👤</span>
                  BILL TO
              </div>
-             <p className="font-bold text-base mb-1">R.S. Bhandari Solar Energy Solutions</p>
+             <p className="font-bold text-base mb-1">r.s. bhandari Solar Energy Solutions</p>
              <p className="text-gray-600 mb-2">Chhatrapati Shivaji Maharaj Chowk Road<br/>Washim, 444505.</p>
              <div className="space-y-1 text-xs">
                  <p><strong>Phone No:</strong> 9422939036</p>
@@ -281,7 +291,7 @@ export const Invoice: React.FC = () => {
           <div className="text-center flex flex-col items-center scale-90 origin-bottom-right transform">
             <Stamp />
             <p className="font-bold mt-2 text-xs z-20 relative bg-white/50 px-2 rounded">Authorized Signatory</p>
-            <p className="text-gray-600 font-medium text-[10px]">R.S. Bhandari Solar Energy</p>
+            <p className="text-gray-600 font-medium text-[10px]">r.s. bhandari Solar Energy</p>
           </div>
         </div>
 

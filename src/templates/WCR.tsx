@@ -135,7 +135,7 @@ export const WCR: React.FC = () => {
       </table>
 
       <p className="mt-1 mb-1 text-justify text-[13px] leading-tight">
-        We R.S. Bhandari Solar Energy Solutions & <strong>{data.name}</strong>
+        We r.s. bhandari Solar Energy Solutions & <strong>{data.name}</strong>
       </p>
       
       <p className="mb-0 text-justify text-[13px] leading-tight">
@@ -145,12 +145,12 @@ export const WCR: React.FC = () => {
 
       <div className="flex justify-between items-start mt-0 pb-0 px-2">
         <div className="font-bold pt-4 text-[13px]">
-           R.S. Bhandari Solar Energy Solutions
+           r.s. bhandari Solar Energy Solutions
         </div>
         <div className="text-center flex flex-col items-center">
             <div className="h-10 w-64 mb-1 flex flex-col items-center justify-end relative">
                {data.customerSignature && (
-                 <img src={data.customerSignature} alt="Signature" className="w-28 h-10 object-contain mix-blend-multiply" />
+                 <img crossOrigin="anonymous" src={data.customerSignature} alt="Signature" className="w-28 h-10 object-contain mix-blend-multiply" />
                )}
             </div>
             <p className="font-bold text-[13px] m-0 leading-none">{data.name}</p>
@@ -176,7 +176,7 @@ export const WCR: React.FC = () => {
             <Stamp />
         </div>
 
-        <p className="font-bold text-base mb-6">For R.S. Bhandari Solar Energy Solutions</p>
+        <p className="font-bold text-base mb-6">For r.s. bhandari Solar Energy Solutions</p>
 
         <p className="mb-4">Identity Details of Consumer: -</p>
         
@@ -186,7 +186,7 @@ export const WCR: React.FC = () => {
 
         <div className="w-[450px] min-h-[300px] border-2 border-dashed border-gray-300 bg-gray-50 flex items-center justify-center my-8 rounded-lg overflow-hidden">
            {data.aadhaarImage ? (
-             <img src={data.aadhaarImage} alt="Aadhaar Document" className="max-w-full max-h-full object-contain mix-blend-multiply" />
+             <img crossOrigin="anonymous" src={data.aadhaarImage} alt="Aadhaar Document" className="max-w-full max-h-full object-contain mix-blend-multiply" />
            ) : (
              <span className="text-gray-400">No Image Uploaded</span>
            )}

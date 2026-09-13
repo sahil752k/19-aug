@@ -29,6 +29,17 @@ export interface CustomerData {
   witnessSignature?: string; // base64
   draftName?: string; // name to display in saved drafts
   
+  wcrCategory?: string;
+  wcrSanctionNumber?: string;
+  wcrModuleWarranty?: string;
+  wcrInverterMakeModel?: string;
+  wcrPcuRating?: string;
+  wcrPcuChargeController?: string;
+  wcrPcuHpd?: string;
+  wcrPcuYearOfManufacturing?: string;
+  wcrEarthingNo?: string;
+  wcrEarthingCertificate?: string;
+  wcrLighteningArrester?: string;
   // Invoice / Bill specific
   invoiceNo: string;
   invoiceDate: string;
@@ -58,29 +69,25 @@ export interface CustomerData {
   inverterQuantity: number;
   inverterPhases: number;
   inverterWarranty: string;
+  inverterSpecification?: string;
+  solarModuleSpecs?: string;
   subsidyAmount: number;
   amcCost: number;
   proposalType: string;
+  productClassification?: string;
+  systemSummarySize?: number | string;
   earthing: string;
   structure?: string;
   acDcCables: string;
-  acDcProtection: string;
-  netMetering: string;
   dailyGeneration: string;
   monthlyGeneration: string;
   yearlyGeneration: string;
-  savings1Year: string;
-  savings5Years: string;
-  savings10Years: string;
-  savings25Years: string;
-  paybackPeriod: string;
   paymentAdvance: number;
   paymentDelivery: number;
   paymentInstallation: number;
   paymentCommissioning: number;
   quoteValidity: string;
   proposalDate: string;
-  customerInvestment: number;
 }
 
 export const defaultCustomerData: CustomerData = {
@@ -129,27 +136,23 @@ export const defaultCustomerData: CustomerData = {
   inverterQuantity: '' as unknown as number,
   inverterPhases: '' as unknown as number,
   inverterWarranty: '',
+  inverterSpecification: '',
+  solarModuleSpecs: '',
 
   subsidyAmount: '' as unknown as number,
   amcCost: '' as unknown as number,
   proposalType: '',
+  productClassification: '',
+  systemSummarySize: '',
   earthing: '',
   acDcCables: '',
-  acDcProtection: '',
-  netMetering: '',
   dailyGeneration: '',
   monthlyGeneration: '',
   yearlyGeneration: '',
-  savings1Year: '',
-  savings5Years: '',
-  savings10Years: '',
-  savings25Years: '',
-  paybackPeriod: '',
   paymentAdvance: 70,
   paymentDelivery: 20,
   paymentInstallation: 5,
   paymentCommissioning: 5,
   quoteValidity: '',
   proposalDate: '',
-  customerInvestment: '' as unknown as number,
 };

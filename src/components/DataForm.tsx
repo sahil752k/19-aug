@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useAppContext } from '../context/AppContext';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SignatureCropper } from './SignatureCropper';
 
 interface Props {
@@ -11,11 +11,10 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
   const { data, setData, saveDraft, createNew, resetProposalData } = useAppContext();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const signatureInputRef = useRef<HTMLInputElement>(null);
-  const [activeTab, setActiveTab] = useState<string>('Master Form');
+  const [activeTab, setActiveTab] = useState<string>('Draft Info');
   const [cropImage, setCropImage] = useState<{ src: string; type: 'customer' | 'vendor' | 'witness' } | null>(null);
 
   const tabs = [
-    'Master Form',
     'Draft Info',
     'Proposal',
     'Model Agreement',
@@ -87,6 +86,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
           name={name} 
           value={val === 0 ? 0 : (val || '')} 
           onChange={handleChange} 
+          onWheel={(e) => (e.target as HTMLInputElement).blur()}
           placeholder={placeholder}
           className="w-full px-4 py-2.5 bg-gray-50/80 backdrop-blur-sm border border-gray-200 rounded-xl focus:ring-4 focus:ring-yellow-500/30 focus:border-yellow-500 focus:bg-white hover:border-gray-400 hover:-translate-y-0.5 hover:shadow-md transition-all duration-300 shadow-sm relative z-10 font-medium" 
         />
@@ -166,7 +166,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
         >
           {tabs.map((tab, idx) => (
             <motion.button
-              whileHover={{ scale: 1.02, x: window.innerWidth >= 1024 ? 4 : 0, y: window.innerWidth < 1024 ? -2 : 0 }}
+              whileHover={{ scale: 1.02, x: (typeof window !== 'undefined' ? window.innerWidth : 1024) >= 1024 ? 4 : 0, y: (typeof window !== 'undefined' ? window.innerWidth : 1024) < 1024 ? -2 : 0 }}
               whileTap={{ scale: 0.98 }}
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -189,141 +189,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
           className="flex-1 bg-white/90 backdrop-blur-2xl p-6 lg:p-10 rounded-[2.5rem] shadow-[0_8px_40px_rgb(0,0,0,0.06)] border border-white ring-1 ring-gray-900/5 relative min-h-[600px] overflow-visible"
         >
           <AnimatePresence mode="wait">
-          {activeTab === 'Master Form' && (
-            <motion.div 
-              key="masterForm"
-              initial={{ opacity: 0, scale: 0.98, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98, y: -10 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-6 h-[75vh] overflow-y-auto pr-4 custom-scrollbar"
-            >
-              <div className="sticky top-0 z-30 bg-white/95 backdrop-blur pt-2 pb-8 -mx-2 px-2">
-                <div className="flex items-center gap-4 border-b border-gray-100 pb-5">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200/50 flex items-center justify-center shadow-inner shrink-0">
-                    <span className="text-indigo-500 font-bold text-2xl drop-shadow-sm">⭐</span>
-                  </div>
-                  <div>
-                      <h3 className="text-3xl font-black text-gray-800 tracking-tight">Master Form</h3>
-                      <p className="text-gray-500 text-sm font-medium mt-1">Fill this once, and all documents will be generated automatically.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-8 pb-10">
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">1</span> Customer & General Details</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Draft / Project Name', 'draftName', 'text', 'e.g. Sahil Home 3kW', 0)}
-                      {renderField('Customer Name', 'name', 'text', '', 1)}
-                      {renderField('Mobile number', 'mobileNumber', 'text', '', 2)}
-                      {renderField('Email ID', 'emailId', 'text', '', 3)}
-                      {renderField('Installation Address', 'address', 'text', '', 4)}
-                      {renderField('Consumer Number', 'consumerNumber', 'text', '', 5)}
-                      {renderField('Aadhar Number', 'aadhaarNumber', 'text', '', 6)}
-                   </div>
-                </div>
-
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">2</span> Project Specifications</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Proposal Type', 'proposalType', 'text', '', 0)}
-                      {renderField('Project Type', 'projectType', 'text', '', 1)}
-                      {renderField('Sanctioned Capacity (KW)', 'sanctionedCapacity', 'number', '', 2)}
-                      {renderField('Installed Capacity (KW)', 'installedCapacity', 'number', '', 3)}
-                      {renderField('Area Available', 'areaAvailable', 'text', '', 4)}
-                      {renderField('Contract Load', 'contractLoad', 'text', '', 5)}
-                   </div>
-                </div>
-
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">3</span> Hardware (Modules & Inverter)</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Make of Module', 'moduleMake', 'text', '', 0)}
-                      {renderField('ALMM Model Number', 'moduleModel', 'text', '', 1)}
-                      {renderField('Module Wattage (Wp)', 'moduleWattage', 'number', '', 2)}
-                      {renderField('Total No. Of Modules', 'numberOfModules', 'number', '', 3)}
-                      {renderField('Module Type / Specs', 'moduleType', 'text', '', 4)}
-                      {renderField('Module Warranty', 'moduleWarranty', 'text', '', 5)}
-                      
-                      {renderField('Make of Inverter', 'inverterMake', 'text', '', 6)}
-                      {renderField('Model Number of Inverter', 'inverterModel', 'text', '', 7)}
-                      {renderField('Capacity of Inverter', 'inverterCapacity', 'number', '', 8)}
-                      {renderField('Inverter Quantity', 'inverterQuantity', 'number', '', 9)}
-                      {renderField('Inverter Phases', 'inverterPhases', 'number', '', 10)}
-                      {renderField('Inverter Warranty', 'inverterWarranty', 'text', '', 11)}
-                   </div>
-                </div>
-
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">4</span> Technical Specs & Generation</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Structure Type', 'structure', 'text', '', 0)}
-                      {renderField('Earthing', 'earthing', 'text', '', 1)}
-                      {renderField('AC / DC Cables', 'acDcCables', 'text', '', 2)}
-                      {renderField('AC / DC Protection', 'acDcProtection', 'text', '', 3)}
-                      {renderField('Net Metering', 'netMetering', 'text', '', 4)}
-                      
-                      {renderField('Daily Generation (Units)', 'dailyGeneration', 'text', '', 5)}
-                      {renderField('Monthly Generation (Units)', 'monthlyGeneration', 'text', '', 6)}
-                      {renderField('Yearly Generation (Units)', 'yearlyGeneration', 'text', '', 7)}
-                      {renderField('Savings 1 Year (₹)', 'savings1Year', 'text', '', 8)}
-                      {renderField('Savings 5 Years (₹)', 'savings5Years', 'text', '', 9)}
-                      {renderField('Savings 10 Years (₹)', 'savings10Years', 'text', '', 10)}
-                      {renderField('Savings 25 Years (₹)', 'savings25Years', 'text', '', 11)}
-                      {renderField('Payback Period', 'paybackPeriod', 'text', '', 12)}
-                   </div>
-                </div>
-
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">5</span> Cost & Payments</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Total System Cost (₹)', 'totalCost', 'number', '', 0)}
-                      {renderField('Cost of RTS System (₹)', 'rtsSystemCost', 'number', '', 1)}
-                      {renderField('Subsidy Amount (₹)', 'subsidyAmount', 'number', '', 2)}
-                      {renderField('Customer Investment (₹)', 'customerInvestment', 'number', '', 3)}
-                      {renderField('AMC Cost (₹)', 'amcCost', 'number', '', 4)}
-                      
-                      {renderField('Advance (%)', 'paymentAdvance', 'number', '', 5)}
-                      {renderField('On Delivery (%)', 'paymentDelivery', 'number', '', 6)}
-                      {renderField('On Installation (%)', 'paymentInstallation', 'number', '', 7)}
-                      {renderField('On Commissioning (%)', 'paymentCommissioning', 'number', '', 8)}
-                   </div>
-                </div>
-
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">6</span> Key Dates</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Proposal Date', 'proposalDate', 'date', '', 0)}
-                      {renderField('Quote Validity (Days)', 'quoteValidity', 'text', '', 1)}
-                      {renderField('Agreement Date', 'agreementDate', 'date', '', 2)}
-                      {renderField('Installation Date', 'installationDate', 'date', '', 3)}
-                   </div>
-                </div>
-                <div className="bg-gray-50/70 p-6 rounded-[2rem] border border-gray-100 shadow-sm">
-                   <h4 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span className="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-sm">7</span> Invoice Details</h4>
-                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {renderField('Invoice Number', 'invoiceNo', 'text', '', 0)}
-                      {renderField('Invoice Date', 'invoiceDate', 'date', '', 1)}
-                      {renderField('Final Invoice Amount (₹)', 'finalInvoiceAmount', 'number', '', 2)}
-                      {renderField('Received Amount (₹)', 'receivedAmount', 'number', '', 3)}
-                   </div>
-                </div>
-
-                <div className="flex items-center gap-4 border-l-4 border-yellow-500 pl-5 mb-8 mt-16 bg-gray-50/50 p-4 rounded-r-xl">
-                  <span className="p-2 bg-yellow-100 text-yellow-600 rounded-lg text-xl shadow-sm">ℹ️</span>
-                  <h3 className="text-xl font-bold text-gray-900 tracking-tight">Invoice is Auto-Calculated</h3>
-                </div>
-                <p className="text-gray-600 px-5 mb-8">
-                  The Invoice is generated automatically based on the Final Invoice Amount. Solar and Installation amounts, along with their respective GST calculations, are derived directly from the Final Amount using reverse calculations as per standard formatting.
-                </p>
-
-
-              </div>
-            </motion.div>
-          )}
-
-          {activeTab === 'Draft Info' && (
+                    {activeTab === 'Draft Info' && (
             <motion.div 
               key="draftInfo"
               initial={{ opacity: 0, scale: 0.98, y: 10 }}
@@ -346,8 +212,8 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
           )}
 
           {activeTab === 'Proposal' && (
-             <motion.div 
-               key="proposal"
+             <motion.div
+                key="proposal"
                initial={{ opacity: 0, scale: 0.98, y: 10 }}
                animate={{ opacity: 1, scale: 1, y: 0 }}
                exit={{ opacity: 0, scale: 0.98, y: -10 }}
@@ -369,74 +235,88 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
-                    PROJECT OVERVIEW
+                    PREPARED FOR (COVER PAGE)
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Proposal Type', 'proposalType', 'text', '', 0)}
-                    {renderField('Project Type', 'projectType', 'text', '', 1)}
-                    {renderField('Area Available', 'areaAvailable', 'text', '', 2)}
-                    {renderField('Contract Load', 'contractLoad', 'text', '', 3)}
-                    {renderField('Proposal Date', 'proposalDate', 'date', '', 4)}
-                    {renderField('Quote Validity (Days)', 'quoteValidity', 'text', '', 5)}
+                    {renderField('Name', 'name', 'text', '', 0)}
+                    {renderField('Address / City', 'address', 'text', '', 1)}
+                    {renderField('SYSTEM CAPACITY (kW)', 'installedCapacity', 'number', '', 2)}
+                    {renderField('PROPOSAL TYPE', 'proposalType', 'text', '', 3)}
+                    {renderField('DATE', 'proposalDate', 'date', '', 4)}
                  </div>
                </div>
 
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
-                    TECHNICAL SPECIFICS
+                    DESIGN INPUTS
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Module Type / Specs', 'moduleType', 'text', '', 0)}
-                    {renderField('Module Warranty', 'moduleWarranty', 'text', '', 1)}
-                    {renderField('Inverter Quantity', 'inverterQuantity', 'number', '', 2)}
-                    {renderField('Inverter Phases', 'inverterPhases', 'number', '', 3)}
-                    {renderField('Inverter Warranty', 'inverterWarranty', 'text', '', 4)}
-                    {renderField('Earthing', 'earthing', 'text', '', 5)}
-                    {renderField('AC / DC Cables', 'acDcCables', 'text', '', 6)}
-                    {renderField('AC / DC Protection', 'acDcProtection', 'text', '', 7)}
-                    {renderField('Net Metering', 'netMetering', 'text', '', 8)}
-                    {renderField('Structure', 'structure', 'text', '', 9)}
+                    {renderField('PROJECT TYPE', 'projectType', 'text', '', 0)}
+                    {renderField('AREA AVAILABLE', 'areaAvailable', 'text', '', 1)}
+                    {renderField('LOAD / CONTRACT LOAD', 'contractLoad', 'text', '', 2)}
                  </div>
                </div>
 
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
-                    GENERATION & SAVINGS
+                    System summary
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Daily Generation (Units)', 'dailyGeneration', 'text', '', 0)}
-                    {renderField('Monthly Generation (Units)', 'monthlyGeneration', 'text', '', 1)}
-                    {renderField('Yearly Generation (Units)', 'yearlyGeneration', 'text', '', 2)}
-                    {renderField('Payback Period', 'paybackPeriod', 'text', '', 3)}
-                    {renderField('Savings 1 Year (₹)', 'savings1Year', 'text', '', 4)}
-                    {renderField('Savings 5 Years (₹)', 'savings5Years', 'text', '', 5)}
-                    {renderField('Savings 10 Years (₹)', 'savings10Years', 'text', '', 6)}
-                    {renderField('Savings 25 Years (₹)', 'savings25Years', 'text', '', 7)}
+                    {renderField('Product classification', 'productClassification', 'text', '', 0)}
+                    {renderField('System size (kW)', 'systemSummarySize', 'number', '', 1)}
+                    {renderField('Solar module', 'solarModuleSpecs', 'text', 'e.g. 56 Wp x 890', 2)}
+                    {renderField('Inverter', 'inverterSpecification', 'text', 'e.g. 890 kW Phase x', 3)}
+                    {renderField('Earthing', 'earthing', 'text', '', 4)}
+                    {renderField('AC/DC Cables', 'acDcCables', 'text', '', 5)}
+                    {renderField('Structure', 'structure', 'text', '', 6)}
+                    {renderField('Subsidy (₹)', 'subsidyAmount', 'number', '', 7)}
+                    {renderField('Price (₹)', 'totalCost', 'number', '', 8)}
                  </div>
                </div>
 
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
-                    FINANCE & PAYMENT
+                    SOLAR PV MODULE DETAILS
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Total System Cost (₹)', 'totalCost', 'number', '', 0)}
-                    {renderField('Cost of RTS System (₹)', 'rtsSystemCost', 'number', '', 1)}
-                    {renderField('Subsidy Amount (₹)', 'subsidyAmount', 'number', '', 2)}
-                    {renderField('Customer Investment (₹)', 'customerInvestment', 'number', '', 3)}
-                    {renderField('Advance (%)', 'paymentAdvance', 'number', '', 4)}
-                    {renderField('On Delivery (%)', 'paymentDelivery', 'number', '', 5)}
-                    {renderField('On Installation (%)', 'paymentInstallation', 'number', '', 6)}
-                    {renderField('On Commissioning (%)', 'paymentCommissioning', 'number', '', 7)}
-                    {renderField('AMC Cost (₹)', 'amcCost', 'number', '', 8)}
+                    {renderField('MANUFACTURER', 'moduleMake', 'text', '', 0)}
+                    {renderField('NO. OF MODULES', 'numberOfModules', 'number', '', 1)}
+                    {renderField('WATTAGE OF EACH MODULE*', 'moduleWattage', 'number', '', 2)}
+                    {renderField('WARRANTY', 'moduleWarranty', 'text', '', 3)}
+                 </div>
+               </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
+                    INVERTER DETAILS
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('MANUFACTURER', 'inverterMake', 'text', '', 0)}
+                    {renderField('RATING KW PER INVERTER', 'inverterCapacity', 'number', '', 1)}
+                    {renderField('QUANTITY', 'inverterQuantity', 'number', '', 2)}
+                    {renderField('INVERTER SPECIFICATION', 'inverterSpecification', 'text', 'e.g. 890 Kw Phase', 3)}
+                    {renderField('NO. OF PHASES', 'inverterPhases', 'number', '', 4)}
+                    {renderField('WARRANTY', 'inverterWarranty', 'text', '', 5)}
+                 </div>
+               </div>
+               
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-[#e27d28]/10 flex items-center justify-center border border-[#e27d28]/20"><div className="w-2 h-2 bg-[#e27d28] rounded-full shadow-[0_0_8px_#e27d28]"></div></span> 
+                    GENERATION EXPECTATION
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('Day 1 (Units)', 'dailyGeneration', 'text', '', 0)}
+                    {renderField('Month 1 (Units)', 'monthlyGeneration', 'text', '', 1)}
+                    {renderField('Year 1 (Units)', 'yearlyGeneration', 'text', '', 2)}
                  </div>
                </div>
              </motion.div>
           )}
-
           {activeTab === 'Model Agreement' && (
             <motion.div 
                key="modelAgreement"
@@ -470,6 +350,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                     CAPACITIES & DATES
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                  {renderField('Sanctioned Capacity (Kw)', 'sanctionedCapacity', 'number', '', 2)}
                   {renderField('Agreement Date', 'agreementDate', 'date', '', 3)}
                 </div>
               </div>
@@ -510,10 +391,26 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 gap-y-10">
                   {renderField('Name', 'name', 'text', '', 0)}
-                  {renderField('Consumer number', 'consumerNumber', 'text', '', 1)}
+                  {renderField('Mobile number', 'mobileNumber', 'text', '', 1)}
+                  {renderField('Email ID', 'emailId', 'email', '', 2)}
+                  {renderField('Consumer number', 'consumerNumber', 'text', '', 3)}
+                  {renderField('Date', 'installationDate', 'date', '', 4)}
                   <div className="md:col-span-2">
-                     {renderField('Installation Address', 'address', 'text', '', 2)}
+                     {renderField('Installation Address', 'address', 'text', '', 5)}
                   </div>
+                </div>
+              </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-emerald-100 flex items-center justify-center border border-emerald-200"><div className="w-2 h-2 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]"></div></span> 
+                    SOLAR PV DETAILS
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                  {renderField('Make of Module', 'moduleMake', 'text', '', 0)}
+                  {renderField('ALMM Model Number', 'moduleModel', 'text', '', 1)}
+                  {renderField('Module Wattage (Wp)', 'moduleWattage', 'number', '', 2)}
+                  {renderField('Total No. Of Modules', 'numberOfModules', 'number', '', 3)}
                 </div>
               </div>
 
@@ -523,15 +420,16 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                     SYSTEM SETUP
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                  {renderField('Make of Module', 'moduleMake', 'text', '', 0)}
-                  {renderField('ALMM Model Number', 'moduleModel', 'text', '', 1)}
-                  {renderField('Module Wattage (Wp)', 'moduleWattage', 'number', '', 2)}
-                  {renderField('Total No. Of Modules', 'numberOfModules', 'number', '', 3)}
+                  {renderField('Sanctioned Capacity (Kw)', 'sanctionedCapacity', 'number', '', 0)}
+                  {renderField('RE Installed Capacity (Rooftop) (Kw)', 'installedCapacity', 'number', '', 1)}
+                  {renderField('Capacity Type', 'setupType', 'text', 'e.g., Rooftop', 2)}
                   
-                  {renderField('Make of Inverter', 'inverterMake', 'text', '', 4)}
-                  {renderField('Model Number of Inverter', 'inverterModel', 'text', '', 5)}
-                  {renderField('Capacity of Inverter', 'inverterCapacity', 'number', '', 6)}
-                  {renderField('Structure Type', 'structure', 'text', '', 7)}
+                  {renderField('Make of Inverter', 'inverterMake', 'text', '', 3)}
+                  {renderField('Model Number of Inverter', 'inverterModel', 'text', '', 4)}
+                  {renderField('Capacity of Inverter (Kw)', 'inverterCapacity', 'number', '', 5)}
+                  
+                  {renderField('Structure Type', 'structure', 'text', '', 6)}
+                  {renderField('Project Model', 'projectModel', 'text', 'e.g., Capex', 7)}
                 </div>
 
               </div>
@@ -592,65 +490,59 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                     CUSTOMER INFO
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Name', 'name', 'text', '', 0)}
-                    {renderField('Consumer number', 'consumerNumber', 'text', '', 1)}
-                    {renderField('Site/Location With Complete Address', 'address', 'text', '', 2)}
-                    {renderField('Email ID', 'emailId', 'text', '', 3)}
-                    {renderField('Mobile number', 'mobileNumber', 'text', '', 4)}
+                    {renderField('Name', 'name', 'text', 'Hariom Ingle', 0)}
+                    {renderField('Consumer number', 'consumerNumber', 'text', '101', 1)}
+                    {renderField('Site/Location With Complete Address', 'address', 'text', 'Deo peth washim', 2)}
+                    {renderField('Category: Govt/Private Sector', 'wcrCategory', 'text', 'Private', 3)}
+                    {renderField('Sanction number', 'wcrSanctionNumber', 'text', 'NP-MHSED25', 4)}
+                    {renderField('Sanctioned Capacity of solar PV system (KW)', 'sanctionedCapacity', 'number', '90', 5)}
+                    {renderField('Capacity of solar PV system (KW)', 'installedCapacity', 'number', '890', 6)}
                   </div>
                </div>
 
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
-                    KYC
-                 </h4>
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end gap-y-10">
-                    {renderField('Aadhar Number', 'aadhaarNumber', 'text', '', 0)}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-                      className="group"
-                    >
-                      <label className="block text-[13px] font-semibold text-gray-700 mb-1.5 uppercase tracking-wide group-hover:text-yellow-600 transition-colors">Aadhaar Image (PNG/JPG)</label>
-                      <div className="flex items-center gap-4 mt-2">
-                        <input type="file" accept="image/*" onChange={handleImageUpload} ref={fileInputRef} className="hidden" />
-                        <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-6 py-3 border-2 border-dashed border-gray-300 rounded-xl bg-white hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-700 hover:shadow-md font-bold transition-all duration-300 text-gray-600">
-                          {data.aadhaarImage ? <><span className="text-xl">🔄</span> Change File</> : <><span className="text-xl">📎</span> Drop Image Here</>}
-                        </button>
-                        {data.aadhaarImage && <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-sm"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] inline-block animate-pulse"></span> Uploaded</span>}
-                      </div>
-                    </motion.div>
-                  </div>
-               </div>
-
-               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
-                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
-                    CAPACITIES & DATES
+                    Specification of the Modules
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Sanctioned Capacity of solar PV system (KW)', 'sanctionedCapacity', 'number', '', 0)}
-                    {renderField('Capacity of solar PV system (KW)', 'installedCapacity', 'number', '', 1)}
-                    {renderField('Installation Date', 'installationDate', 'date', '', 2)}
+                    {renderField('Make of Module', 'moduleMake', 'text', 'MODULE', 0)}
+                    {renderField('ALMM Model Number', 'moduleModel', 'text', 'almm', 1)}
+                    {renderField('Wattage per module', 'moduleWattage', 'text', '56 Wp', 2)}
+                    {renderField('No. of Module', 'numberOfModules', 'number', '890', 3)}
+                    {renderField('Total Capacity (Kwp)', 'installedCapacity', 'number', '890', 4)}
+                    {renderField('Warranty Details (Product + Performance)', 'wcrModuleWarranty', 'text', '10 Years & 25 Years', 5)}
                   </div>
                </div>
 
                <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
                  <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
                     <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
-                    EQUIPMENT
+                    Specifications of PCU
                  </h4>
                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
-                    {renderField('Make of Module', 'moduleMake', 'text', '', 0)}
-                    {renderField('ALMM Model Number', 'moduleModel', 'text', '', 1)}
-                    {renderField('Wattage per module', 'moduleWattage', 'number', '', 2)}
-                    {renderField('No. of Module', 'numberOfModules', 'number', '', 3)}
-                    {renderField('Make of Inverter', 'inverterMake', 'text', '', 4)}
-                    {renderField('Model Number of Inverter', 'inverterModel', 'text', '', 5)}
-                    {renderField('Capacity of Inverter', 'inverterCapacity', 'number', '', 6)}
+                    {renderField('Make & Model Number of Inverter', 'wcrInverterMakeModel', 'text', 'JHK 790897', 0)}
+                    {renderField('Rating', 'wcrPcuRating', 'text', '', 1)}
+                    {renderField('Type of charge controller/ MPPT', 'wcrPcuChargeController', 'text', '', 2)}
+                    {renderField('Capacity of Inverter', 'inverterCapacity', 'number', '890', 3)}
+                    {renderField('HPD', 'wcrPcuHpd', 'text', '-', 4)}
+                    {renderField('Year of manufacturing', 'wcrPcuYearOfManufacturing', 'text', '2024', 5)}
                   </div>
- 
-              </div>
+               </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
+                    Earthing & Protections
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('No. of Separate Earthing with earth resistance', 'wcrEarthingNo', 'text', '3', 0)}
+                    <div className="md:col-span-2">
+                       {renderField('It is certified that the earth Resistance measure in presence of Licensed Electrical Contractor/Supervisor and found in order i.e. <5 Ohms as per MNRE OM Dtd. 07.06.24 for CFA component.', 'wcrEarthingCertificate', 'text', '', 1)}
+                    </div>
+                    {renderField('Lightening Arrester', 'wcrLighteningArrester', 'text', 'Separate Earthing Provided', 2)}
+                  </div>
+               </div>
             </motion.div>
           )}
 
@@ -694,7 +586,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                     <h4 className="text-xs tracking-[0.2em] font-black text-[#f5a623] mb-6 whitespace-nowrap">PAYMENT RECEIVED</h4>
                     <div className="my-4 group">
                       <label className="block text-[13px] font-semibold text-gray-300 mb-2 uppercase tracking-wide group-hover:text-white transition-colors">Amount Received (₹)</label>
-                      <input type="number" name="receivedAmount" value={data.receivedAmount === 0 ? 0 : (data.receivedAmount || '')} onChange={handleChange} className="w-full px-5 py-4 bg-white/5 backdrop-blur-md border border-white/20 rounded-xl focus:ring-4 focus:ring-yellow-500/40 text-white font-black text-2xl focus:bg-white/10 hover:border-white/40 transition-all duration-300 shadow-inner" />
+                      <input type="number" name="receivedAmount" value={data.receivedAmount === 0 ? 0 : (data.receivedAmount || '')} onChange={handleChange} onWheel={(e) => (e.target as HTMLInputElement).blur()} className="w-full px-5 py-4 bg-white/5 backdrop-blur-md border border-white/20 rounded-xl focus:ring-4 focus:ring-yellow-500/40 text-white font-black text-2xl focus:bg-white/10 hover:border-white/40 transition-all duration-300 shadow-inner" />
                     </div>
                     <div className="mt-8 flex items-center justify-center gap-2 text-sm text-yellow-400/90 font-bold bg-yellow-400/10 border border-yellow-400/20 px-4 py-2.5 rounded-xl w-full shadow-sm">
                       <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse"></span> Auto-calculates Balance
@@ -716,6 +608,7 @@ export const DataForm: React.FC<Props> = ({ onNext }) => {
                       name="finalInvoiceAmount" 
                       value={data.finalInvoiceAmount === 0 ? 0 : (data.finalInvoiceAmount || '')} 
                       onChange={handleChange} 
+                      onWheel={(e) => (e.target as HTMLInputElement).blur()}
                       className="w-full px-5 py-4 bg-white border-2 border-yellow-400 rounded-xl focus:ring-4 focus:ring-yellow-500/20 text-gray-900 font-black text-3xl shadow-sm transition-all" 
                       placeholder="e.g. 200000"
                     />

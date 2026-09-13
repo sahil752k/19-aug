@@ -52,7 +52,7 @@ export const runProposalPhotoPdfEngine = async (
     pdf.setProperties({ title: '', subject: '', author: '', keywords: '', creator: '' });
     
     // Engine scaling multiplier
-    const ratio = isHighRes ? 5.5 : 4.5;
+    const ratio = isHighRes ? 8.0 : 6.0;
 
     for (let i = 0; i < pageElements.length; i++) {
       const pageEl = pageElements[i];
@@ -62,7 +62,7 @@ export const runProposalPhotoPdfEngine = async (
         backgroundColor: '#ffffff', 
         pixelRatio: ratio, 
         skipFonts: true, // Do not load fonts into canvas SVG serialization
-        cacheBust: true
+        cacheBust: false
       });
 
       // Step B: Canvas Isolation (severs any lingering DOM/CSS OM references)

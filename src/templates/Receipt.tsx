@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppContext } from '../context/AppContext';
 import { Logo, Stamp } from './shared';
-import { Phone, Home, Mail } from 'lucide-react';
+import { Phone, Home, Mail, Globe } from 'lucide-react';
 import { numberToWords } from '../utils/numberToWords';
 
 export const Receipt: React.FC = () => {
@@ -33,6 +33,7 @@ export const Receipt: React.FC = () => {
                     <p>"SAMAYSAR" Jain Colony</p>
                     <p>Pusad Naka, Washim- 444505. (MS)</p>
                     <p className="tracking-tight">sumyabhandari15@gmail.com</p>
+                    <p className="tracking-tight font-semibold mt-0.5">www.rsbhandari.in</p>
                 </div>
                 <div className="w-[42px] bg-[#1d1d1b] flex flex-col items-center justify-center py-2 shrink-0">
                     <div className="bg-[#df8534] max-w-fit p-[5px] rounded-full text-white">
@@ -46,6 +47,10 @@ export const Receipt: React.FC = () => {
                     <div className="bg-[#df8534] max-w-fit p-[5px] rounded-full text-white">
                         <Mail size={11} fill="currentColor" strokeWidth={1} />
                     </div>
+                    <div className="w-5 border-b-[1.5px] border-white my-1 opacity-90"></div>
+                    <div className="bg-[#df8534] max-w-fit p-[5px] rounded-full text-white">
+                        <Globe size={11} strokeWidth={2} />
+                    </div>
                 </div>
             </div>
           </div>
@@ -55,36 +60,36 @@ export const Receipt: React.FC = () => {
              <div className="flex justify-between items-end">
                  <div className="flex items-end flex-1 mr-8">
                      <span className="mr-2">Receipt No.</span>
-                     <span className="border-b border-black border-dotted flex-1 inline-block pb-1 text-center font-bold font-mono">{data.receiptNo}</span>
+                     <span className="border-b border-black border-dotted flex-1 inline-block pb-1 text-left font-bold font-mono">{data.receiptNo}</span>
                  </div>
                  <div className="flex items-end w-64">
                      <span className="mr-2">Dated</span>
-                     <span className="border-b border-black border-dotted flex-1 inline-block pb-1 text-center font-mono">{formatDate(data.receiptDate)}</span>
+                     <span className="border-b border-black border-dotted flex-1 inline-block pb-1 text-left font-mono">{formatDate(data.receiptDate)}</span>
                  </div>
              </div>
 
              <div className="flex items-end pt-2">
                  <span className="mr-2">Received with thanks from</span>
-                 <span className="border-b border-black flex-1 font-bold pb-0.5 uppercase px-4 text-center">{data.name}</span>
+                 <span className="border-b border-black flex-1 font-bold pb-0.5 uppercase px-4 text-left">{data.name}</span>
              </div>
 
              <div className="flex items-end">
                  <span className="mr-2">the sum of Rupees</span>
-                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-center capitalize">{numberToWords(data.receivedAmount)}</span>
+                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-left capitalize">{data.receivedAmount ? `${numberToWords(data.receivedAmount)}/-` : ""}</span>
              </div>
 
              <div className="w-full border-b-[1.5px] border-[#1d1d1b]"></div>
 
              <div className="flex items-end">
                  <span className="mr-2">by Cash / Cheque / Draft No.</span>
-                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-center">{data.paymentMethod === 'Cash' ? 'N/A' : data.chequeNo}</span>
+                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-left">{data.paymentMethod === 'Cash' ? 'N/A' : data.chequeNo}</span>
                  <span className="mx-3">Dt:</span>
-                 <span className="border-b border-black w-48 font-bold pb-0.5 text-center">{formatDate(data.receiptDate)}</span>
+                 <span className="border-b border-black w-48 font-bold pb-0.5 text-left">{formatDate(data.receiptDate)}</span>
              </div>
 
              <div className="flex items-end">
                  <span className="mr-2">Drawn on (Bank & Branch)</span>
-                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-center">{data.bankName ? data.bankName : ''}</span>
+                 <span className="border-b border-black flex-1 font-bold pb-0.5 px-4 text-left">{data.bankName ? data.bankName : ''}</span>
              </div>
 
              <div className="w-full border-b-[1.5px] border-[#1d1d1b] mb-5"></div>
@@ -101,13 +106,13 @@ export const Receipt: React.FC = () => {
                  </div>
                  
                  <div className="flex-1 text-right flex flex-col items-end pt-4 relative z-10">
-                     <div className="absolute top-[-30px] right-0 transform scale-[0.85] origin-right pointer-events-none">
+                     <div className="absolute top-[-45px] right-8 transform scale-[0.95] pointer-events-none">
                          <Stamp />
                      </div>
                      {data.vendorSignature && (
-                       <img src={data.vendorSignature} alt="Vendor" className="z-10 w-32 h-16 object-contain mix-blend-multiply mb-2 relative" />
+                       <img crossOrigin="anonymous" src={data.vendorSignature} alt="Vendor" className="z-10 w-32 h-16 object-contain mix-blend-multiply mb-2 relative" />
                      )}
-                     <p className="font-bold text-[15px] text-[#1d1d1b] relative z-10">FOR r. s. bhandari Solar Energy Solutions</p>
+                     <p className="font-bold text-[15px] text-[#1d1d1b] relative z-10">For r.s. bhandari Solar Energy Solutions</p>
                  </div>
              </div>
 

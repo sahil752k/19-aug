@@ -3,8 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RS BHANDARI SOLAR ENERY SOLUTION.</title>
-  </head>
+    <title>RS Bhandari Document Generator</title>
+    <meta name="description" content="An application built with Google AI Studio." />
+    <meta property="og:title" content="RS Bhandari Document Generator" />
+    <meta property="og:description" content="An application built with Google AI Studio." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  
+<script>
+  window.onerror = function(msg, url, lineNo, columnNo, error) {
+    fetch('http://localhost:3001', { method: 'POST', body: 'ERROR: ' + msg + ' ' + error?.stack });
+    return false;
+  };
+  const origLog = console.log;
+  console.log = function(...args) {
+    fetch('http://localhost:3001', { method: 'POST', body: 'LOG: ' + args.join(' ') });
+    origLog.apply(console, args);
+  };
+  const origError = console.error;
+  console.error = function(...args) {
+    fetch('http://localhost:3001', { method: 'POST', body: 'CONSOLE ERROR: ' + args.join(' ') });
+    origError.apply(console, args);
+  };
+</script>
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

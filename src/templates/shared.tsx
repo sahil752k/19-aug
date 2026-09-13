@@ -13,10 +13,10 @@ export const Logo = ({ className = "", size = "md", textContainerClassName = "" 
     <div className={`flex items-center gap-2 md:gap-3 ${className}`}>
       <div className={`${s.img} flex items-center justify-center shrink-0`}>
         {/* Add your logo URL in the src attribute below */}
-        <img src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/ChatGPT_Image_Jun_13__2026__03_30_24_PM-removebg-preview.png" alt="Logo" className="w-full h-full object-contain mix-blend-multiply mix-blend-multiply" />
+        <img crossOrigin="anonymous" src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/ChatGPT_Image_Jun_13__2026__03_30_24_PM-removebg-preview.png" alt="Logo" className="w-full h-full object-contain mix-blend-multiply mix-blend-multiply" />
       </div>
       <div className={`flex flex-col justify-center whitespace-nowrap ${textContainerClassName}`}>
-        <span className={`text-[#e27d28] font-bold ${s.title} tracking-widest uppercase leading-none font-times`} style={{fontFamily: 'Montserrat, sans-serif'}}>r. s. bhandari</span>
+        <span className={`text-[#e27d28] font-bold ${s.title} tracking-widest leading-none font-times`} style={{fontFamily: 'Montserrat, sans-serif'}}>r.s. bhandari</span>
         <span className={`text-[#415a77] font-bold ${s.subtitle} tracking-tight leading-none mt-1`}>Solar Energy Solutions</span>
       </div>
     </div>
@@ -28,7 +28,7 @@ export const Stamp = () => (
   <div className="relative w-32 h-auto flex flex-col items-center justify-center mix-blend-multiply">
     <img 
       src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/rs%20final%20sign.png" 
-      alt="R.S. Bhandari Signature and Stamp" 
+      alt="r.s. bhandari Signature and Stamp" 
       className="max-w-full h-auto object-contain mix-blend-multiply mb-1" 
     />
   </div>

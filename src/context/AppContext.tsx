@@ -16,21 +16,21 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [data, setData] = useState<CustomerData>(() => {
-    const active = localStorage.getItem('activeSolarData');
+    const active = (() => { try { return localStorage.getItem('activeSolarData'); } catch (e) { return null; } })()
     return active ? JSON.parse(active) : { ...defaultCustomerData, id: Date.now().toString() };
   });
 
   const [savedDrafts, setSavedDrafts] = useState<CustomerData[]>(() => {
-    const drafts = localStorage.getItem('solarDrafts');
+    const drafts = (() => { try { return localStorage.getItem('solarDrafts'); } catch (e) { return null; } })()
     return drafts ? JSON.parse(drafts) : [];
   });
 
   useEffect(() => {
-    localStorage.setItem('activeSolarData', JSON.stringify(data));
+    try { localStorage.setItem('activeSolarData', JSON.stringify(data)); } catch (e) {}
   }, [data]);
 
   useEffect(() => {
-    localStorage.setItem('solarDrafts', JSON.stringify(savedDrafts));
+    try { localStorage.setItem('solarDrafts', JSON.stringify(savedDrafts)); } catch (e) {}
   }, [savedDrafts]);
 
   const saveDraft = () => {
@@ -83,23 +83,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       proposalType: defaultCustomerData.proposalType,
       earthing: defaultCustomerData.earthing,
       acDcCables: defaultCustomerData.acDcCables,
-      acDcProtection: defaultCustomerData.acDcProtection,
-      netMetering: defaultCustomerData.netMetering,
       dailyGeneration: defaultCustomerData.dailyGeneration,
       monthlyGeneration: defaultCustomerData.monthlyGeneration,
       yearlyGeneration: defaultCustomerData.yearlyGeneration,
-      savings1Year: defaultCustomerData.savings1Year,
-      savings5Years: defaultCustomerData.savings5Years,
-      savings10Years: defaultCustomerData.savings10Years,
-      savings25Years: defaultCustomerData.savings25Years,
-      paybackPeriod: defaultCustomerData.paybackPeriod,
       paymentAdvance: defaultCustomerData.paymentAdvance,
       paymentDelivery: defaultCustomerData.paymentDelivery,
       paymentInstallation: defaultCustomerData.paymentInstallation,
       paymentCommissioning: defaultCustomerData.paymentCommissioning,
       quoteValidity: defaultCustomerData.quoteValidity,
       proposalDate: defaultCustomerData.proposalDate,
-      customerInvestment: defaultCustomerData.customerInvestment,
       structure: defaultCustomerData.structure,
       totalCost: defaultCustomerData.totalCost,
       rtsSystemCost: defaultCustomerData.rtsSystemCost,

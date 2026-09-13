@@ -1,8 +1,11 @@
 import React from 'react';
+import { formatDate } from '../utils/dateFormatter';
 import { useAppContext } from '../context/AppContext';
 import { Stamp } from './shared';
 
+
 export const AnnexureI: React.FC = () => {
+
   const { data } = useAppContext();
 
   return (
@@ -10,7 +13,7 @@ export const AnnexureI: React.FC = () => {
       {/* Header */}
       <div className="flex justify-between items-start border-b-2 border-gray-300 pb-2 mb-4">
         <div className="w-48 shrink-0">
-          <img src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/mahavitran%20logo.png" alt="Mahavitaran Logo" className="max-w-[160px] h-auto object-contain mix-blend-multiply" />
+          <img crossOrigin="anonymous" src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/mahavitran%20logo.png" alt="Mahavitaran Logo" className="max-w-[160px] h-auto object-contain mix-blend-multiply" />
         </div>
         <div className="text-center flex-1 pr-16 border-r border-gray-300 ml-4">
           <h1 className="font-bold text-lg uppercase">Maharashtra State Electricity Distribution Company Limited</h1>
@@ -98,7 +101,7 @@ export const AnnexureI: React.FC = () => {
           <tr>
             <td className="border border-gray-300 py-1.5 px-2 text-center">13</td>
             <td className="border border-gray-300 py-1.5 px-2">Installation Date</td>
-            <td className="border border-gray-300 py-1.5 px-2">{data.installationDate}</td>
+            <td className="border border-gray-300 py-1.5 px-2">{formatDate(data.installationDate)}</td>
           </tr>
           <tr className="bg-gray-50">
             <td className="border border-gray-300 py-1.5 px-2 text-center">14</td>
@@ -133,7 +136,7 @@ export const AnnexureI: React.FC = () => {
         <div className="text-center flex flex-col items-center justify-end h-40">
           <div className="h-28 flex items-end justify-center border-b border-gray-400 w-64 mx-auto pb-1 mb-3">
             {data.customerSignature ? (
-              <img src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
+              <img crossOrigin="anonymous" src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
             ) : (
               <span className="text-gray-400 text-sm italic font-signature mb-2">(Signature)</span>
             )}
@@ -144,7 +147,7 @@ export const AnnexureI: React.FC = () => {
           <div className="h-28 flex items-end justify-center border-b border-gray-400 w-64 mx-auto pb-1 mb-3">
             <Stamp />
           </div>
-          <p className="font-bold uppercase py-1 inline-block px-4">R.S. Bhandari Solar Energy Solutions</p>
+          <p className="font-bold  py-1 inline-block px-4">r.s. bhandari Solar Energy Solutions</p>
         </div>
       </div>
 
@@ -158,18 +161,18 @@ export const AnnexureI: React.FC = () => {
         </h4>
 
         <p className="mb-6 leading-loose text-justify">
-          Certified that a Grid Connected SPV Power Plant of <strong>{data.installedCapacity} kWp</strong> capacity has been installed at the site <strong className="uppercase bg-gray-100 px-2 underline">{data.name}</strong>, <strong>{data.address}</strong> which has been installed by M/S R.S. Bhandari Solar Energy Solutions on <strong>{data.installationDate}</strong>. The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.
+          Certified that a Grid Connected SPV Power Plant of <strong>{data.sanctionedCapacity} kWp</strong> capacity has been installed at the site <strong className="uppercase bg-gray-100 px-2 underline">{data.name}</strong>, <strong>{data.address}</strong> which has been installed by M/S r.s. bhandari Solar Energy Solutions on <strong>{formatDate(data.installationDate)}</strong>. The system is as per BIS/MNRE specifications. The system has been checked for its performance and found in order for further commissioning.
         </p>
 
         <div className="flex justify-end mt-10 mb-16">
           <div className="text-center flex flex-col items-center">
             <Stamp />
-            <p className="font-bold mt-4">R.S. Bhandari Solar Energy Solutions</p>
+            <p className="font-bold mt-4">r.s. bhandari Solar Energy Solutions</p>
           </div>
         </div>
 
         <p className="mb-10 leading-loose text-justify">
-          The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt {data.installationDate}. as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt.{data.installationDate} and found in order for commissioning.
+          The above RTS installation has been inspected by me for Pre-Commissioning Testing of Roof Top Solar Connection on dt 12-05-2024. as per guidelines issued by the office of The Chief Engineer vide letter no 21653 on dt.12.09.2024 and found in order for commissioning.
         </p>
 
         <div className="flex justify-start mt-10 break-inside-avoid">

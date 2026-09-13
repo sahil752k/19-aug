@@ -8,10 +8,10 @@ const safeFormatDate = (dateStr: string | undefined | null, formatStr: string) =
   return isValid(d) ? format(d, formatStr) : '';
 };
 import { Logo, Stamp } from './shared';
-import { User, Zap, FileText, Calendar, CheckCircle2, ThumbsUp, Medal, Clock, Settings, HeadphonesIcon, TrendingUp, ShieldCheck, Leaf, FileCheck, CircleDot, Banknote } from 'lucide-react';
+import { User, Zap, FileText, Calendar, CheckCircle2, ThumbsUp, Medal, Clock, Settings, HeadphonesIcon, TrendingUp, ShieldCheck, Leaf, FileCheck, CircleDot, Banknote, Building, QrCode, Phone, Mail, MapPin, Globe, CheckCircle, Headset, Landmark } from 'lucide-react';
 
 const PageWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div data-pdf-page="true" className="w-[794px] h-[1123px] bg-[#f8f9fa] relative overflow-hidden flex flex-col mx-auto mb-8 print:mb-0 shadow-lg print:shadow-none" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
+  <div data-pdf-page="true" className="w-[794px] h-[1123px] bg-[#f8f9fa] relative overflow-hidden flex flex-col mx-auto mb-8 print:mb-0 shadow-lg print:shadow-none antialiased" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
     {children}
   </div>
 );
@@ -101,31 +101,44 @@ export const Proposal: React.FC = () => {
         {/* Footer Bar */}
         <div className="w-full flex flex-row items-center justify-between border-t-[3px] border-[#86a8c6] bg-white pt-2 pb-2 px-10 relative overflow-hidden mt-1">
            <div className="absolute top-0 right-0 w-48 h-48 bg-[#e27d28]/10 rounded-full blur-3xl transform translate-x-10 -translate-y-10 pointer-events-none"></div>
-           <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#1e3a5f]/10 rounded-full blur-3xl transform -translate-x-10 translate-y-10 pointer-events-none"></div>
+           <div className="absolute bottom-0 left-0 w-48 h-48 bg-[#e27d28]/10 rounded-full blur-3xl transform -translate-x-10 translate-y-10 pointer-events-none"></div>
            
            <div className="flex-[0.8] flex flex-col items-center justify-center border-r-[2px] border-gray-300 pr-4 mr-4 relative z-10 py-1">
-              <div className="w-[35px] h-[35px] border-2 border-gray-500 rounded-[8px] p-0.5 mb-1 bg-white shadow-sm flex items-center justify-center overflow-hidden">
-                 <img src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/ChatGPT_Image_Jun_13__2026__03_30_24_PM-removebg-preview.png" alt="Logo" className="w-[120%] h-[120%] object-contain mix-blend-multiply max-w-none" />
+              <div className="w-[45px] h-[45px] border-2 border-gray-500 rounded-[8px] p-0.5 mb-1 bg-white shadow-sm flex items-center justify-center overflow-hidden">
+                 <img crossOrigin="anonymous" src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/ChatGPT_Image_Jun_13__2026__03_30_24_PM-removebg-preview.png" alt="Logo" className="w-[120%] h-[120%] object-contain mix-blend-multiply max-w-none" />
               </div>
               <div className="flex flex-col items-center justify-center whitespace-nowrap">
-                  <span className="text-[#e27d28] font-bold text-[13px] tracking-widest uppercase leading-none font-times" style={{fontFamily: 'Montserrat, sans-serif'}}>r. s. bhandari</span>
-                  <span className="text-[#415a77] font-bold text-[8px] tracking-tight leading-none mt-0.5">Solar Energy Solutions</span>
+                  <span className="text-[#e27d28] font-bold text-[15px] tracking-widest  leading-none font-times" style={{fontFamily: 'Montserrat, sans-serif'}}>r.s. bhandari</span>
+                  <span className="text-[#415a77] font-bold text-[9px] tracking-tight leading-none mt-0.5">Solar Energy Solutions</span>
               </div>
            </div>
            
-           <div className="flex-[2] flex flex-col gap-0.5 text-[9px] text-[#5b728b] relative z-10 pl-2">
-              <h3 className="text-[13px] font-bold text-[#5b728b] italic tracking-wide mb-0.5" style={{fontFamily: 'Montserrat, sans-serif'}}>
-                 r. s. bhandari Solar Energy Solutions
+           <div className="flex-[2] flex flex-col gap-1 text-[10px] text-[#5b728b] relative z-10 pl-2">
+              <h3 className="text-[15px] font-bold text-[#5b728b] italic tracking-wide mb-0.5" style={{fontFamily: 'Montserrat, sans-serif'}}>
+                 r.s. bhandari Solar Energy Solutions
               </h3>
-              <div className="grid grid-cols-[80px_1fr] gap-x-2 gap-y-0.5 items-start font-medium leading-tight text-[9.5px]">
+              <div className="grid grid-cols-[80px_1fr] gap-x-2 gap-y-0.5 items-start font-medium leading-tight text-[11px]">
                  <span className="text-[#5b728b]">Corporate office:</span>
                  <span className="text-[#5b728b]">“SAMAYSAR” Jain Colony Pusad Naka, Washim</span>
                  
                  <span className="text-[#5b728b]">Branch office:</span>
                  <span className="text-[#5b728b]">“Seren County” B 302 Vadgaon Sinhagad Road, Dhayari Pune 411041</span>
               </div>
-              <div className="mt-0.5 flex items-center gap-2 font-medium text-[#5b728b] text-[9.5px]">
-                 | rsbenergys@gmail.com | 9226372787
+              <div className="mt-1 flex items-center justify-center gap-3 font-medium text-[#5b728b] text-[11px]">
+                 <div className="flex items-center gap-1">
+                     <Globe size={12} className="text-[#e27d28]" />
+                     <span>www.rsbhandari.in</span>
+                 </div>
+                 <span>|</span>
+                 <div className="flex items-center gap-1">
+                     <Mail size={12} className="text-[#e27d28]" />
+                     <span>rsbenergys@gmail.com</span>
+                 </div>
+                 <span>|</span>
+                 <div className="flex items-center gap-1">
+                     <Phone size={12} className="text-[#e27d28]" />
+                     <span>9422939036</span>
+                 </div>
               </div>
            </div>
            
@@ -145,13 +158,13 @@ export const Proposal: React.FC = () => {
           </div>
           <div className="relative z-10 w-3/4">
             <h2 className="text-4xl font-bold mb-2">ABOUT</h2>
-            <h3 className="text-2xl font-bold tracking-widest text-[#a8c6e6]">R. S. BHANDARI SOLAR</h3>
+            <h3 className="text-2xl font-bold tracking-widest text-[#a8c6e6]">r.s. bhandari SOLAR</h3>
           </div>
         </div>
 
         <div className="p-10 flex-1 flex flex-col">
           <p className="text-[17px] text-gray-700 leading-relaxed text-justify mb-12">
-            <span className="font-bold text-[#1e3a5f]">r. s. bhandari Solar Energy Solutions</span> is one of the fastest growing rooftop solar companies in Maharashtra, with footprints in Pune, Aurangabad, Akola, Washim, Amravati, Nagpur, Jalgaon. We have executed over <span className="font-bold text-[#e27d28]">100+ solar projects</span> across 7 District, that include rooftop (residential, commercial, industrial & Government), solar water pumps, solar petrol pumps.
+            <span className="font-bold text-[#1e3a5f] text-[15px]">r.s. bhandari Solar Energy Solutions</span> is one of the fastest growing rooftop solar companies in Maharashtra, with footprints in Pune, Aurangabad, Akola, Washim, Amravati, Nagpur, Jalgaon. We have executed over <span className="font-bold text-[#e27d28]">100+ solar projects</span> across 7 District, that include rooftop (residential, commercial, industrial & Government), solar water pumps, solar petrol pumps.
           </p>
 
           <h3 className="text-[#1e3a5f] text-2xl font-bold tracking-wider mb-8">WHY CHOOSE US?</h3>
@@ -267,22 +280,22 @@ export const Proposal: React.FC = () => {
                  <div className="w-[60%] h-[2px] bg-gray-300 mt-3 mb-3"></div>
                  <h4 className="text-[15px] text-[#39a0c6] mb-4 font-medium">A quick overview of system project and price</h4>
                  
-                 <div className="border-t-[2px] border-b-[2px] border-[#485b65] flex flex-col text-[13px] flex-1 justify-between py-1">
+                 <div className="border-t-[2px] border-b-[2px] border-[#485b65] flex flex-col text-[15px] flex-1 justify-between py-1">
                     <div className="flex justify-between py-2 border-b border-gray-200">
                        <span className="font-bold text-[#1f6377]">Product classification</span>
-                       <span className="text-[#156e80] w-[45%] font-medium">{data.proposalType}</span>
+                       <span className="text-[#156e80] w-[45%] font-medium">{data.productClassification || data.proposalType}</span>
                     </div>
                     <div className="flex justify-between py-2 border-b border-gray-200">
                        <span className="font-bold text-[#1f6377]">System size</span>
-                       <span className="text-[#156e80] w-[45%] font-medium">{data.installedCapacity} kW</span>
+                       <span className="text-[#156e80] w-[45%] font-medium">{data.systemSummarySize || data.installedCapacity} kW</span>
                     </div>
                     <div className="flex justify-between py-2 border-b border-gray-200">
                         <span className="font-bold text-[#1f6377]">Solar module</span>
-                        <span className="text-[#156e80] w-[45%] font-medium">{data.moduleWattage} Wp x {data.numberOfModules.toString().padStart(2, '0')}</span>
+                        <span className="text-[#156e80] w-[45%] font-medium">{data.solarModuleSpecs || `${data.moduleWattage || 0} Wp x ${(data.numberOfModules || 0).toString().padStart(2, '0')}`}</span>
                     </div>
                     <div className="flex justify-between py-2 border-b border-gray-200">
                         <span className="font-bold text-[#1f6377]">Inverter</span>
-                        <span className="text-[#156e80] w-[45%] font-medium">{data.inverterCapacity} kW Phase x {data.inverterPhases}</span>
+                        <span className="text-[#156e80] w-[45%] font-medium">{data.inverterSpecification || `${data.inverterCapacity || 0} kW Phase x ${data.inverterPhases || 0}`}</span>
                     </div>
                     <div className="flex justify-between py-2 border-b border-gray-200">
                         <span className="font-bold text-[#1f6377]">Earthing</span>
@@ -307,7 +320,7 @@ export const Proposal: React.FC = () => {
                  </div>
                  
                  <div className="mt-3">
-                     <p className="text-[11px] text-[#485b65] font-medium leading-tight"><span className="font-bold italic mr-1">NOTE:</span> T&C apply | GST at actual Approx. Quote valid for {data.quoteValidity} days from {safeFormatDate(data.proposalDate, 'EEE dd MMM yyyy')}</p>
+                     <p className="text-[11px] text-[#485b65] font-medium leading-tight"><span className="font-bold italic mr-1">NOTE:</span> T&C apply | GST at actual Approx. Quote valid for 365 days from {safeFormatDate(data.proposalDate, 'EEE dd MMM yyyy')}</p>
                  </div>
               </div>
            </div>
@@ -352,7 +365,7 @@ export const Proposal: React.FC = () => {
                            </svg>
                        </div>
                        <div>
-                           <p className="text-gray-500 text-[13px] font-medium leading-snug">
+                           <p className="text-gray-500 text-[15px] font-medium leading-snug">
                                Going solar eliminates <br/>
                                <strong className="text-[#1e3a5f] text-xl font-black">{co2Tons} tons</strong> <br/>
                                of greenhouse emissions annually
@@ -371,7 +384,7 @@ export const Proposal: React.FC = () => {
                            </svg>
                        </div>
                        <div>
-                           <p className="text-gray-500 text-[13px] font-medium leading-snug">
+                           <p className="text-gray-500 text-[15px] font-medium leading-snug">
                                Going solar is equivalent to <br/>
                                planting <strong className="text-green-600 text-xl font-black">{treesPlanted.toLocaleString('en-IN')} trees</strong> <br/>
                                annually
@@ -439,7 +452,7 @@ export const Proposal: React.FC = () => {
                    </div>
                    <div>
                       <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Inverter Specification</p>
-                      <p className="font-semibold text-gray-900 border-b border-gray-200 pb-1">{data.inverterCapacity} Kw {data.inverterPhases} Phase</p>
+                      <p className="font-semibold text-gray-900 border-b border-gray-200 pb-1">{data.inverterSpecification || `${data.inverterCapacity || 0} Kw ${data.inverterPhases || 0} Phase`}</p>
                    </div>
                    <div className="flex gap-4">
                        <div className="flex-1">
@@ -454,35 +467,6 @@ export const Proposal: React.FC = () => {
                 </div>
              </div>
           </div>
-          
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden mb-auto">
-              <div className="bg-[#1e3a5f] text-white p-3 font-bold px-5 tracking-wider text-sm">
-                 BALANCE OF SYSTEM
-              </div>
-              <div className="p-5 grid grid-cols-2 gap-x-8 gap-y-4">
-                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                    <span className="text-sm font-bold text-gray-600">Mounting Structure</span>
-                    <span className="text-sm font-semibold text-gray-900">{data.structure || 'Hot Dip GI (3x3/2x2)'}</span>
-                 </div>
-                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                    <span className="text-sm font-bold text-gray-600">Earthing</span>
-                    <span className="text-sm font-semibold text-gray-900">{data.earthing}</span>
-                 </div>
-                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                    <span className="text-sm font-bold text-gray-600">AC / DC Cables</span>
-                    <span className="text-sm font-semibold text-gray-900">{data.acDcCables}</span>
-                 </div>
-                 <div className="flex justify-between border-b border-gray-200 pb-2">
-                    <span className="text-sm font-bold text-gray-600">AC / DC Protection</span>
-                    <span className="text-sm font-semibold text-gray-900">{data.acDcProtection}</span>
-                 </div>
-                 <div className="flex justify-between border-b border-gray-200 pb-2 col-span-2">
-                    <span className="text-sm font-bold text-gray-600">Net Metering</span>
-                    <span className="text-sm font-semibold text-gray-900">{data.netMetering}</span>
-                 </div>
-              </div>
-          </div>
-
           <div className="grid grid-cols-4 gap-4 mt-auto border-t border-gray-200 pt-8">
              <div className="flex flex-col items-center text-center">
                 <div className="w-16 h-16 rounded-full border-2 border-gray-200 flex items-center justify-center mb-3"><Medal className="text-[#1e3a5f]" size={32} /></div>
@@ -508,181 +492,13 @@ export const Proposal: React.FC = () => {
         </div>
       </PageWrapper>
 
-      {/* Page 5: Financial Benefits */}
-      <PageWrapper>
-        <div className="bg-[#1e3a5f] text-white p-10 py-12 relative overflow-hidden flex items-center min-h-[140px]">
-          <div className="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[#e27d28] -skew-x-[35deg] translate-x-[250px] origin-bottom-right"></div>
-          <div className="relative z-10 w-full flex justify-between items-center">
-            <h2 className="text-4xl font-bold tracking-widest text-white">FINANCIAL BENEFITS</h2>
-            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 5</div>
-          </div>
-        </div>
-
-        <div className="p-10 flex-1 flex flex-row gap-8">
-           <div className="flex-1 flex flex-col">
-              <h3 className="text-green-600 font-bold tracking-wider mb-4 text-[13px]">EXPECTED GENERATION</h3>
-              <div className="grid grid-cols-3 gap-4 mb-10">
-                 <div className="border border-gray-200 rounded-lg p-4 flex flex-col items-center pb-6">
-                    <div className="text-orange-400 mb-2"><svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.758a.75.75 0 001.06-1.061l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"></path></svg></div>
-                    <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2">DAILY</p>
-                    <p className="text-3xl border-t border-gray-300 w-full text-center pt-2 font-bold text-[#1e3a5f]">{data.dailyGeneration}</p>
-                    <p className="text-sm text-gray-500 mt-1">Units</p>
-                 </div>
-                 <div className="border border-gray-200 rounded-lg p-4 flex flex-col items-center pb-6">
-                    <div className="text-blue-500 mb-2"><Calendar size={40} /></div>
-                    <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2">MONTHLY</p>
-                    <p className="text-3xl border-t border-gray-300 w-full text-center pt-2 font-bold text-[#1e3a5f]">{data.monthlyGeneration}</p>
-                    <p className="text-sm text-gray-500 mt-1">Units</p>
-                 </div>
-                 <div className="border border-gray-200 rounded-lg p-4 flex flex-col items-center pb-6">
-                    <div className="text-green-500 mb-2"><LineChartIcon size={40} /></div>
-                    <p className="text-gray-500 font-bold text-xs uppercase tracking-widest mb-2">YEARLY</p>
-                    <p className="text-3xl border-t border-gray-300 w-full text-center pt-2 font-bold text-[#1e3a5f]">{data.yearlyGeneration}</p>
-                    <p className="text-sm text-gray-500 mt-1">Units</p>
-                 </div>
-              </div>
-
-              <h3 className="text-green-600 font-bold tracking-wider mb-4 text-[13px]">SAVINGS OVER TIME <span className="text-gray-400 font-medium ml-2">(Estimated)</span></h3>
-              <table className="w-full text-center border overflow-hidden rounded-lg mb-auto">
-                 <thead className="bg-[#1e3a5f] text-white">
-                    <tr>
-                       <th className="py-2.5 px-4 font-semibold border-r border-[#2a4d7d]">Duration</th>
-                       <th className="py-2.5 px-4 font-semibold">Estimated Savings (₹)</th>
-                    </tr>
-                 </thead>
-                 <tbody className="divide-y divide-gray-200">
-                    <tr>
-                       <td className="py-3 px-4 bg-[#1e3a5f] text-white font-medium border-r border-[#2a4d7d]">1 Year</td>
-                       <td className="py-3 px-4 font-bold text-gray-800 bg-gray-50">₹ {data.savings1Year}</td>
-                    </tr>
-                    <tr>
-                       <td className="py-3 px-4 bg-[#1e3a5f] text-white font-medium border-r border-[#2a4d7d]">5 Years</td>
-                       <td className="py-3 px-4 font-bold text-gray-800 bg-gray-50">₹ {data.savings5Years}</td>
-                    </tr>
-                    <tr>
-                       <td className="py-3 px-4 bg-[#1e3a5f] text-white font-medium border-r border-[#2a4d7d]">10 Years</td>
-                       <td className="py-3 px-4 font-bold text-gray-800 bg-gray-50">₹ {data.savings10Years}</td>
-                    </tr>
-                    <tr>
-                       <td className="py-3 px-4 bg-[#1e3a5f] text-white font-medium border-r border-[#2a4d7d]">25 Years</td>
-                       <td className="py-3 px-4 font-bold text-gray-800 bg-gray-50">₹ {data.savings25Years}</td>
-                    </tr>
-                 </tbody>
-              </table>
-
-              <div className="flex justify-between items-center mt-12 bg-gray-50 p-6 rounded-xl h-24">
-                 <div className="flex flex-col items-center gap-1 w-1/4">
-                    <div className="text-green-600"><Banknote size={24} strokeWidth={1.5} /></div>
-                    <p className="font-semibold text-[10px] text-center text-gray-600 leading-tight">Increase Property<br/>Value</p>
-                 </div>
-                 <div className="flex flex-col items-center gap-1 w-1/4">
-                    <div className="text-green-600"><ShieldCheck size={24} strokeWidth={1.5} /></div>
-                    <p className="font-semibold text-[10px] text-center text-gray-600 leading-tight">Protection Against<br/>Rising Rates</p>
-                 </div>
-                 <div className="flex flex-col items-center gap-1 w-1/4">
-                    <div className="text-green-600"><Leaf size={24} strokeWidth={1.5} /></div>
-                    <p className="font-semibold text-[10px] text-center text-gray-600 leading-tight">Clean & Green<br/>Environment</p>
-                 </div>
-                 <div className="flex flex-col items-center gap-1 w-1/4">
-                    <div className="text-green-600"><Zap size={24} strokeWidth={1.5} /></div>
-                    <p className="font-semibold text-[10px] text-center text-gray-600 leading-tight">Energy<br/>Independence</p>
-                 </div>
-              </div>
-           </div>
-
-           <div className="w-[30%] bg-green-50/50 rounded-xl border border-green-100 p-6 flex flex-col items-center justify-center text-center">
-              <h3 className="text-green-700 font-bold uppercase tracking-widest text-sm mb-6">RETURN ON<br/>INVESTMENT</h3>
-              <div className="w-32 h-32 border-[12px] border-green-500 rounded-full flex items-center justify-center mb-16 shadow-lg bg-white relative">
-                 <Banknote size={40} className="text-green-600" />
-                 <div className="absolute -top-4 -right-4 bg-green-500 rounded-full p-2 text-white shadow-md"><TrendingUp size={24}/></div>
-              </div>
-
-              <h4 className="font-bold text-gray-800 uppercase tracking-widest mb-4 whitespace-nowrap text-[13px]">PAYBACK PERIOD</h4>
-              <p className="text-6xl font-black text-green-600 mb-2">{data.paybackPeriod}</p>
-              <p className="text-xl font-bold text-green-600 tracking-widest">YEARS</p>
-              <p className="text-sm text-gray-500">(Approx.)</p>
-           </div>
-        </div>
-      </PageWrapper>
-
-      {/* Page 6: Price Quotation */}
-      <PageWrapper>
-         <div className="bg-[#1e3a5f] text-white p-10 py-12 relative overflow-hidden flex items-center min-h-[140px]">
-          <div className="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[#e27d28] -skew-x-[35deg] translate-x-[250px] origin-bottom-right"></div>
-          <div className="relative z-10 w-full flex justify-between items-center">
-            <h2 className="text-4xl font-bold tracking-widest text-white">PRICE QUOTATION</h2>
-            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 6</div>
-          </div>
-        </div>
-
-        <div className="p-10 flex-1 flex flex-col">
-           <h3 className="text-[#1e3a5f] text-[15px] font-bold tracking-widest mb-6 uppercase border-b pb-2">PROJECT COST SUMMARY</h3>
-           
-           <div className="border border-gray-300 rounded-lg overflow-hidden mb-12">
-              <table className="w-full text-left text-[15px]">
-                 <thead className="bg-[#e27d28] text-white">
-                    <tr>
-                       <th className="py-4 px-6 font-semibold w-2/3 border-r border-[#c2651b]">Particulars</th>
-                       <th className="py-4 px-6 font-semibold text-center">Amount (₹)</th>
-                    </tr>
-                 </thead>
-                 <tbody className="divide-y divide-gray-200">
-                    <tr>
-                       <td className="py-5 px-6 font-medium text-gray-800 border-r border-gray-200 bg-gray-50/50">Total System Cost ({data.installedCapacity} kW)</td>
-                       <td className="py-5 px-6 text-center font-semibold bg-gray-50/50">₹ {data.totalCost.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr>
-                       <td className="py-5 px-6 font-medium text-gray-800 border-r border-gray-200">Less: Government Subsidy (Approx.)</td>
-                       <td className="py-5 px-6 text-center font-bold text-green-600">₹ {data.subsidyAmount.toLocaleString('en-IN')}</td>
-                    </tr>
-                    <tr className="bg-green-100">
-                       <td className="py-6 px-6 font-bold text-green-800 text-lg uppercase border-r border-green-200">Customer Investment</td>
-                       <td className="py-6 px-6 text-center font-bold text-green-800 text-lg">₹ {data.customerInvestment?.toLocaleString('en-IN') || (data.totalCost - data.subsidyAmount).toLocaleString('en-IN')}</td>
-                    </tr>
-                 </tbody>
-              </table>
-           </div>
-
-           <div className="flex gap-10 mt-auto bg-gray-50 p-8 rounded-xl border border-gray-200">
-              <div className="flex-[0.6]">
-                 <h3 className="text-[#1e3a5f] text-[15px] font-bold tracking-widest mb-6 uppercase">What's Included</h3>
-                 <ul className="space-y-4">
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> High Efficiency Solar Panels</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> On Grid Inverter</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> Hot Dip GI Structure</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> AC / DC Cables & Protection</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> Installation & Commissioning</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> Net Metering Assistance</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> Transportation</li>
-                    <li className="flex gap-3 items-center text-gray-700 font-medium text-[13px]"><CheckCircle2 className="text-green-500 bg-white rounded-full" size={20}/> Complete Documentation Support</li>
-                 </ul>
-              </div>
-              
-              <div className="flex-[0.4] bg-[#1e3a5f] rounded-xl text-center flex flex-col items-center justify-center p-8 text-white relative overflow-hidden shadow-md border border-[#2a4d7d]">
-                 <div className="absolute inset-0 bg-[#e27d28]/10"></div>
-                 <div className="relative z-10 flex flex-col items-center">
-                    <Medal size={64} className="text-[#e27d28] mb-6 drop-shadow-md" strokeWidth={1.5} />
-                    <p className="font-bold text-xl tracking-widest mb-2 text-white shadow-sm">BEST QUALITY</p>
-                    <p className="font-bold text-xl tracking-widest mb-2 text-[#a8c6e6] shadow-sm">BEST PRICE</p>
-                    <p className="font-bold text-xl tracking-widest mb-6 text-white shadow-sm">BEST SERVICE</p>
-                    <div className="w-16 h-1 bg-[#e27d28] mb-4"></div>
-                    <p className="text-[#e27d28] font-bold text-[15px] uppercase tracking-widest">Our Promise</p>
-                 </div>
-              </div>
-           </div>
-        </div>
-      </PageWrapper>
-
-      {/* Pages 7 & 8 Wrapper to match width/height and pair correctly for print if they were half. 
-          Actually wait, the design shows them as full portrait pages. So I will keep them a PageWrapper each! */}
-      
-      {/* Page 7: Terms & Conditions */}
+      {/* Page 5: Terms & Conditions */}
       <PageWrapper>
          <div className="bg-[#1e3a5f] text-white p-10 py-12 relative overflow-hidden flex items-center min-h-[140px]">
           <div className="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[#e27d28] -skew-x-[35deg] translate-x-[250px] origin-bottom-right"></div>
           <div className="relative z-10 w-full flex justify-between items-center">
             <h2 className="text-4xl font-bold tracking-widest text-white">TERMS & CONDITIONS</h2>
-            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 7</div>
+            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 5</div>
           </div>
         </div>
             
@@ -692,7 +508,7 @@ export const Proposal: React.FC = () => {
            <div className="mb-8 pl-4">
               <ol className="list-decimal space-y-4 text-gray-800 font-medium text-[15px] pl-6">
                  <li>Customer reviews data and issues Purchase Order</li>
-                 <li>r. s. bhandari Solar Energy Solutions will conduct a detailed project analysis along with 2D drawings</li>
+                 <li>r.s. bhandari Solar Energy Solutions will conduct a detailed project analysis along with 2D drawings</li>
                  <li>Installation as per the project plan</li>
               </ol>
            </div>
@@ -701,10 +517,10 @@ export const Proposal: React.FC = () => {
            
            <div className="mb-8 pl-4">
               <ul className="space-y-3 text-gray-800 font-medium text-[15px] pl-2">
-                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> {data.paymentAdvance || 70}% advance along with purchase order</li>
-                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> {data.paymentDelivery || 20}% on supply of material</li>
-                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> {data.paymentInstallation || 5}% on installation</li>
-                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> {data.paymentCommissioning || 5}% on commissioning</li>
+                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> 70% advance along with purchase order</li>
+                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> 20% on supply of material</li>
+                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> 5% on installation</li>
+                 <li className="flex gap-4 items-center"><div className="w-2.5 h-2.5 rounded-full border-[2.5px] border-[#e27d28]"></div> 5% on commissioning</li>
               </ul>
            </div>
 
@@ -715,20 +531,217 @@ export const Proposal: React.FC = () => {
               <li className="pl-2">All Materials, Transport, are use as per Site and Project required T & C Apply</li>
               <li className="pl-2">Local Taxes Extra. Bond paper Charges Extra. Additional Load Charges Extra.</li>
               <li className="pl-2">Time Required for Net meter installation and commissioning depends on the time taken by the MSEB officer.</li>
-              <li className="pl-2">AMC Contract {data.amcCost.toLocaleString('en-IN')}/- Year Without Material, cost should be paid by customer. We are Providing only Service. C&T Apply.</li>
+              <li className="pl-2">AMC Contract 3 Year Without Material, cost should be paid by customer. We are Providing only Service. C&T Apply.</li>
               <li className="pl-2">Project Insurance charges should be paid by customer.</li>
               <li className="pl-2">Net metering should be done after receiving full payment.</li>
            </ol>
         </div>
       </PageWrapper>
 
-      {/* Page 8: Acceptance */}
+            {/* Page 6: Bank Details */}
+      <PageWrapper>
+         <div className="bg-[#1e3a5f] text-white p-10 py-12 relative overflow-hidden flex items-center min-h-[140px]">
+          <div className="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[#e27d28] -skew-x-[35deg] translate-x-[250px] origin-bottom-right"></div>
+          <div className="relative z-10 w-full flex justify-between items-center">
+            <h2 className="text-4xl font-bold tracking-widest text-white uppercase">BANK DETAILS</h2>
+            <div className="bg-white text-[#e27d28] font-bold py-1.5 px-5 rounded-full text-[15px] shadow-md tracking-wider">Page 6</div>
+          </div>
+        </div>
+
+        <div className="p-8 flex-1 flex flex-col gap-6 bg-[#f8f9fa]">
+           {/* Row 1: Bank Account & Scan to Pay */}
+           <div className="flex gap-6 h-[400px]">
+              {/* Left Column - Official Bank Account */}
+              <div className="flex-1 bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col">
+                 <div className="bg-[#1e3a5f] text-white px-6 py-4 flex justify-between items-center shrink-0">
+                    <div className="flex items-center gap-3">
+                       <Landmark size={20} className="text-[#e27d28]" />
+                       <h3 className="font-bold tracking-widest uppercase text-[15px]">OFFICIAL BANK ACCOUNT</h3>
+                    </div>
+                    <Banknote size={20} className="text-white/30" />
+                 </div>
+                 <div className="px-8 py-6 flex flex-col justify-between flex-1 text-[15px]">
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">ACCOUNT NAME</span>
+                       <span className="font-bold text-[#1e3a5f]">r.s. bhandari Solar Energy Solutions</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">BANK NAME</span>
+                       <span className="font-bold text-gray-900">State Bank of India (SBI)</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">ACCOUNT NUMBER</span>
+                       <span className="font-black text-gray-900 text-[16px] tracking-wider">37748474127</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">IFSC CODE</span>
+                       <span className="font-bold text-gray-900 tracking-wider">SBIN0000503</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">BRANCH NAME</span>
+                       <span className="font-bold text-gray-900">Patni Chowk, Washim - 444 505</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">ACCOUNT TYPE</span>
+                       <span className="font-bold text-gray-900">Current Account</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-gray-100 pb-2.5">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">PAN CARD</span>
+                       <span className="font-bold text-gray-900 tracking-wider">BXPPB1277F</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                       <span className="font-bold text-gray-500 tracking-wider uppercase text-[11px]">GSTIN NO.</span>
+                       <span className="font-bold text-gray-900 tracking-wider">27BXPPB1277F1ZG</span>
+                    </div>
+                 </div>
+              </div>
+
+              {/* Right Column - Scan to Pay */}
+              <div className="w-[300px] bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col shrink-0">
+                 <div className="bg-[#e27d28] text-white px-6 py-4 flex justify-center items-center shrink-0">
+                    <div className="flex items-center gap-3">
+                       <QrCode size={20} />
+                       <h3 className="font-bold tracking-widest uppercase text-[15px]">SCAN TO PAY</h3>
+                    </div>
+                 </div>
+                 <div className="p-6 flex flex-col items-center flex-1 justify-center">
+                    <div className="border border-gray-200 rounded-xl p-2.5 mb-4 shadow-sm bg-white">
+                       <img crossOrigin="anonymous" src="https://cdn.jsdelivr.net/gh/sahil752k/solar-biling-software-sumit-bhandari@main/qr-code%20(1).png" alt="QR Code" className="w-[140px] h-[140px]" />
+                    </div>
+                    <div className="bg-[#1e3a5f] text-white text-[11px] font-bold px-6 py-1.5 rounded-full tracking-wider mb-2">
+                       INSTANT BANK / UPI
+                    </div>
+                    <div className="text-[10px] text-gray-500 font-medium tracking-wide mb-2">
+                       GPay | PhonePe | Paytm | BHIM
+                    </div>
+                    <div className="font-black text-gray-900 text-[15px] tracking-wider mb-4 border-b border-gray-100 w-full text-center pb-4">
+                       9422939036@ybl
+                    </div>
+                    
+                    <div className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-2">
+                       Accepted Payment Modes
+                    </div>
+                    <div className="text-[10.5px] font-bold text-[#e27d28] tracking-widest flex gap-1.5 flex-wrap justify-center">
+                       <span>NEFT</span><span className="text-gray-300">&bull;</span><span>RTGS</span><span className="text-gray-300">&bull;</span><span>IMPS</span><span className="text-gray-300">&bull;</span><span>UPI</span><span className="text-gray-300">&bull;</span><span>CHEQUE</span>
+                    </div>
+                 </div>
+              </div>
+           </div>
+
+           {/* Office Locations */}
+           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col min-h-[220px] shrink-0">
+              <div className="bg-[#1e3a5f] text-white px-6 py-3 flex justify-between items-center shrink-0">
+                 <div className="flex items-center gap-3">
+                    <HeadphonesIcon size={18} className="text-[#e27d28]" />
+                    <h3 className="font-bold tracking-widest uppercase text-[15px]">OFFICE LOCATIONS & SUPPORT DIRECTORY</h3>
+                 </div>
+                 <div className="text-[10px] font-bold tracking-wider text-gray-300">
+                    SUPPORT: MON - SAT (9:30 AM - 6:30 PM)
+                 </div>
+              </div>
+              <div className="flex divide-x divide-gray-100 flex-1">
+                 <div className="flex-1 p-6 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-[#e27d28]/10 flex items-center justify-center shrink-0">
+                       <Building size={20} className="text-[#e27d28]" />
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between h-full">
+                       <div>
+                          <h4 className="font-bold text-[#1e3a5f] tracking-widest uppercase text-[12.5px] mb-1.5">CORPORATE & HEAD OFFICE</h4>
+                          <p className="text-[12.5px] text-gray-600 mb-3 leading-relaxed">
+                             "SAMAYSAR" Jain Colony, Pusad Naka,<br/>Washim, Maharashtra - 444 505
+                          </p>
+                       </div>
+                       <div className="bg-gray-50 rounded-lg p-3 border border-gray-100 space-y-2.5 text-[12.5px]">
+                          <div className="flex items-center gap-3">
+                             <Phone size={14} className="text-[#e27d28]" />
+                             <span className="font-bold text-[#1e3a5f]">+91 942 293 9036 / +91 922 637 2787</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                             <Mail size={14} className="text-[#e27d28]" />
+                             <span className="font-bold text-[#1e3a5f]">rsbenergys@gmail.com</span>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+                 <div className="flex-1 p-6 flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-[#e27d28]/10 flex items-center justify-center shrink-0">
+                       <MapPin size={20} className="text-[#e27d28]" />
+                    </div>
+                    <div className="flex-1 flex flex-col justify-between h-full">
+                       <div>
+                          <h4 className="font-bold text-[#1e3a5f] tracking-widest uppercase text-[12.5px] mb-1.5">BRANCH OFFICE (PUNE REGION)</h4>
+                          <p className="text-[12.5px] text-gray-600 mb-3 leading-relaxed">
+                             A11, 304, Saffron, Meghapolic Rajiv Gandhi<br/>Infotech Park Phase 3,<br/>Village:Maan, Tehsil Mulashi Pune 411057
+                          </p>
+                       </div>
+                       <div className="bg-gray-50 rounded-lg p-3 border border-gray-100 space-y-2.5 text-[12.5px]">
+                          <div className="flex items-center gap-3">
+                             <Phone size={14} className="text-[#e27d28]" />
+                             <span className="font-bold text-[#1e3a5f]">+91 942 293 9036</span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                             <Mail size={14} className="text-[#e27d28]" />
+                             <span className="font-bold text-[#1e3a5f]">rsbenergys@gmail.com</span>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+
+           {/* Payment Instructions */}
+           <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden flex flex-col flex-1">
+              <div className="bg-[#1e3a5f] text-white px-6 py-3 flex justify-between items-center shrink-0">
+                 <div className="flex items-center gap-3">
+                    <ShieldCheck size={18} className="text-[#e27d28]" />
+                    <h3 className="font-bold tracking-widest uppercase text-[15px]">PAYMENT INSTRUCTIONS & GUIDELINES</h3>
+                 </div>
+                 <div className="text-[10px] font-bold tracking-wider text-gray-300 uppercase">
+                    Important Notice
+                 </div>
+              </div>
+              <div className="flex divide-x divide-gray-100 flex-1 items-center">
+                 <div className="flex-1 p-6 space-y-4">
+                    <div className="flex gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-[#e27d28] mt-2 shrink-0"></div>
+                       <p className="text-[12.5px] text-gray-600 leading-relaxed">
+                          <strong className="text-gray-800">Reference Narration:</strong> Please mention Customer Name (<strong className="text-gray-800">{data.name || 'Customer'}</strong>) and Consumer Number in payment remarks while transferring.
+                       </p>
+                    </div>
+                    <div className="flex gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-[#e27d28] mt-2 shrink-0"></div>
+                       <p className="text-[12.5px] text-gray-600 leading-relaxed">
+                          <strong className="text-gray-800">Beneficiary Name:</strong> Ensure the beneficiary is strictly named <strong className="text-gray-800">"r.s. bhandari Solar Energy Solutions"</strong> before approving RTGS/NEFT.
+                       </p>
+                    </div>
+                 </div>
+                 <div className="flex-1 p-6 space-y-4">
+                    <div className="flex gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-[#1e3a5f] mt-2 shrink-0"></div>
+                       <p className="text-[12.5px] text-gray-600 leading-relaxed">
+                          <strong className="text-gray-800">Payment Confirmation:</strong> Share payment screenshot / UTR number via WhatsApp at <strong className="text-gray-800">+91 942 293 9036</strong> for immediate receipt acknowledgment.
+                       </p>
+                    </div>
+                    <div className="flex gap-3">
+                       <div className="w-1.5 h-1.5 rounded-full bg-[#1e3a5f] mt-2 shrink-0"></div>
+                       <p className="text-[12.5px] text-gray-600 leading-relaxed">
+                          <strong className="text-gray-800">Official Receipt:</strong> Computerized tax invoice & official receipt will be issued within 24 hours of bank clearance.
+                       </p>
+                    </div>
+                 </div>
+              </div>
+           </div>
+
+        </div>
+      </PageWrapper>
+      
+{/* Page 7: Acceptance */}
       <PageWrapper>
          <div className="bg-[#1e3a5f] text-white p-10 py-12 relative overflow-hidden flex items-center min-h-[140px]">
           <div className="absolute right-0 bottom-0 w-[400px] h-[300px] bg-[#e27d28] -skew-x-[35deg] translate-x-[250px] origin-bottom-right"></div>
           <div className="relative z-10 w-full flex justify-between items-center">
             <h2 className="text-4xl font-bold tracking-widest text-white">ACCEPTANCE</h2>
-            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 8</div>
+            <div className="bg-white text-[#e27d28] font-bold py-1 px-4 rounded-full text-xs shadow-md">Page 7</div>
           </div>
         </div>
 
@@ -746,7 +759,7 @@ export const Proposal: React.FC = () => {
                  <span className="w-40 font-bold text-gray-600 uppercase text-sm tracking-wider">Signature :</span>
                  <span className="flex-1 border-b-2 border-gray-300 pb-2 h-10 relative">
                     {data.customerSignature && (
-                      <img src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply absolute bottom-0 left-0" />
+                      <img crossOrigin="anonymous" src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply absolute bottom-0 left-0" />
                     )}
                  </span>
               </div>
@@ -762,15 +775,15 @@ export const Proposal: React.FC = () => {
 
            <div className="flex justify-between items-end mb-auto pt-10 px-10">
               <div className="flex flex-col items-center">
-                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-4">COMPANY SEAL</p>
+                 
                  <div className="w-32 h-auto flex flex-col items-center justify-center mix-blend-multiply opacity-50">
                     {/* Placeholder for actual seal if distinct from sign */}
                  </div>
               </div>
               <div className="flex flex-col items-center text-center -mt-6">
-                 <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-2 whitespace-nowrap">AUTHORIZED SIGNATORY</p>
+                 
                  <Stamp />
-                 <p className="font-bold text-[13px] uppercase tracking-widest text-[#1e3a5f] border-t-2 border-[#1e3a5f] pt-4 px-4 whitespace-nowrap mt-2">r. s. bhandari Solar Energy Solutions</p>
+                 <p className="font-bold text-[15px]  tracking-widest text-[#1e3a5f] border-t-2 border-[#1e3a5f] pt-4 px-4 whitespace-nowrap mt-2">r.s. bhandari Solar Energy Solutions</p>
               </div>
            </div>
 
@@ -784,59 +797,7 @@ export const Proposal: React.FC = () => {
         </div>
       </PageWrapper>
 
-      {/* Footer / Bank Details / Contact Us block (Page 8 / Bottom Block) */}
-      <div className="w-[794px] bg-white border border-gray-200 shadow-lg print:shadow-none mb-8 flex flex-col relative" style={{ pageBreakAfter: 'always', breakAfter: 'page' }}>
-         <div className="flex divide-x divide-gray-200 border-b border-gray-200">
-             <div className="flex-1 p-8 bg-gray-50">
-                <h3 className="font-bold text-[#1e3a5f] uppercase tracking-wider mb-6 border-b border-gray-300 pb-2">BANK DETAILS</h3>
-                <div className="grid grid-cols-[130px_1fr] gap-y-3 text-[14px] text-gray-700">
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase">Account Name</div><div className="font-semibold text-gray-900">: r. s. bhandari Solar Energy Solutions</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase mt-2">Bank Name</div><div className="font-semibold text-gray-900 mt-2">: State Bank of India</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase">Branch</div><div className="font-semibold text-gray-900">: Patni Chowk, Washim 444 505</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase mt-2">A/C Number</div><div className="font-bold text-gray-900 mt-2 text-base tracking-widest">: 37748474127</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase">IFSC Code</div><div className="font-semibold text-gray-900">: SBIN0000503</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase mt-2">PAN Card</div><div className="font-semibold text-gray-900 mt-2">: BXPPB1277F</div>
-                   <div className="font-bold text-gray-600 text-xs tracking-widest uppercase">GSTIN No.</div><div className="font-semibold text-gray-900">: 27BXPPB1277F1ZG</div>
-                </div>
-             </div>
-             
-             <div className="flex-1 p-8 flex flex-col items-center justify-center bg-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[#e27d28]/5"></div>
-                <div className="relative z-10 w-full mb-6">
-                    <Logo size="sm" className="justify-center" />
-                </div>
-             </div>
-         </div>
-
-         <div className="flex p-8 items-center bg-white justify-between">
-            <div className="flex-1 pr-6">
-               <h3 className="font-bold text-[#1e3a5f] uppercase tracking-wider mb-6 border-b border-gray-300 pb-2">CONTACT US</h3>
-               <div className="space-y-4 text-[14px] text-gray-700">
-                  <div className="flex items-center gap-4"><div className="bg-[#1e3a5f] p-2 rounded-full text-white"><HeadphonesIcon size={18}/></div> <span className="font-bold text-gray-900 text-base">+91 942 293 9036</span></div>
-                  <div className="flex items-center gap-4"><div className="bg-[#1e3a5f] p-2 rounded-full text-white"><FileCheck size={18}/></div> <span className="font-semibold">rsbenergys@gmail.com</span></div>
-                  <div className="flex items-start gap-4 mt-6">
-                     <div className="bg-[#1e3a5f] p-2 rounded-full text-white shrink-0 mt-1"><MapIcon size={18}/></div> 
-                     <div>
-                        <p className="font-semibold text-gray-900 mb-1">Head Office:</p>
-                        <p className="text-sm text-gray-600 mb-3">"SAMAYSAR" Jain Colony, Pusad Naka, Washim 444505</p>
-                        <p className="font-semibold text-gray-900 mb-1">Branch Office:</p>
-                        <p className="text-sm text-gray-600">"Seren County" B 302 Vadgaon Sinhagad Road, Dhayari, Pune 411041</p>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            
-            <div className="flex flex-col items-center justify-center p-6 rounded-2xl border-2 border-gray-100 bg-gray-50 shadow-sm">
-               <div className="bg-white p-2 rounded-lg shadow-sm border border-gray-200 mb-4">
-                  {/* Dummy QR Code */}
-                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://wa.me/919422939036" alt="QR Code" className="w-[120px] h-[120px] opacity-90" />
-               </div>
-               <div className="bg-[#e27d28] text-white text-[12px] font-bold px-8 py-2 rounded-full w-full text-center uppercase tracking-widest shadow-md">SCAN ME</div>
-               <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-3">For More Details</p>
-            </div>
-         </div>
-      </div>
-    </div>
+          </div>
   );
 };
 

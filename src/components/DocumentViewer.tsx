@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Printer, Download, DownloadCloud, Image as ImageIcon } from 'lucide-react';
+import { Download, DownloadCloud, Image as ImageIcon } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import * as htmlToImage from 'html-to-image';
 import { runProposalPhotoPdfEngine } from '../utils/proposalPdfEngine';
@@ -39,18 +39,6 @@ export const DocumentViewer: React.FC = () => {
   const { data } = useAppContext();
   
   const customerName = data?.name ? data.name : 'Customer';
-  
-  // Override browser print with our flattened version
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
-        e.preventDefault();
-        handlePrint();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeDoc, data]);
 
   const tabs: { id: DocType; label: string }[] = [
     { id: 'AnnexureI', label: 'Annexure-I' },
@@ -66,25 +54,21 @@ export const DocumentViewer: React.FC = () => {
     const element = document.getElementById(elementId);
     if (!element) return null;
     
-    // Check if this document should be compressed
-    const isCompressedDoc = ['AnnexureI', 'ModelAgreement', 'Annexure3', 'WCR'].some(docId => elementId.includes(docId));
-    
     try {
       // Ensure all images are fully loaded and layout has settled
       await waitImagesLoaded(element);
       // Adding a small delay to ensure rendering is complete
       await new Promise(resolve => setTimeout(resolve, 300));
 
-      // Generic multi-page logic for other documents
-      // High baseScale for sharper HD look across all documents
-      const baseScale = isCompressedDoc ? 2.5 : 4.5; 
+      // Ultra HD scale
+      const baseScale = 4.5; 
       const rect = element.getBoundingClientRect();
       const width = Math.ceil(rect.width);
       const height = Math.ceil(rect.height);
       
       const parentRect = element.getBoundingClientRect();
       const pageBreakNodes = Array.from(element.querySelectorAll(
-        '.page-break, [style*="break-after"], [style*="page-break-after"], [style*="break-before"], [style*="page-break-before"]'
+        '.page-break, .a4-page, .page, [style*="break-after"], [style*="page-break-after"], [style*="break-before"], [style*="page-break-before"]'
       )) as HTMLElement[];
       const breakOffsets: number[] = [];
       
@@ -104,11 +88,11 @@ export const DocumentViewer: React.FC = () => {
       
       // Dynamic paragraph/block breaking fallback
       if (breakOffsets.length === 0) {
-        const selectors = 'p, h2, h3, h4, tr, ul, ol, li, .break-inside-avoid';
-        const nodes = Array.from(element.querySelectorAll(selectors)) as HTMLElement[];
-        const a4PageHeight = 1060; 
+        const a4PageHeight = width * 1.414; // A4 ratio
         let currentBreakPoint = a4PageHeight;
         let lastValidBreakOffset = 0;
+        
+        const nodes = Array.from(element.querySelectorAll('p, div, h1, h2, h3, h4, h5, h6, tr, table')) as HTMLElement[];
         
         const nodeOffsets = nodes
           .map(node => {
@@ -153,7 +137,7 @@ export const DocumentViewer: React.FC = () => {
         backgroundColor: '#ffffff',
         pixelRatio: baseScale,
         skipFonts: false,
-        cacheBust: true,
+        cacheBust: false,
         style: {
           userSelect: 'none',
           webkitUserSelect: 'none'
@@ -200,99 +184,20 @@ export const DocumentViewer: React.FC = () => {
               0, 0, pageCanvas.width, pageCanvas.height
             );
 
-            if (posterize) {
-              const imgData = pCtx.getImageData(0, 0, pageCanvas.width, pageCanvas.height);
-              const data = imgData.data;
-              for (let j = 0; j < data.length; j += 4) {
-                const r = data[j];
-                const g = data[j+1];
-                const b = data[j+2];
-                const avg = (r + g + b) / 3;
-                
-                let val = 255;
-                if (avg < 80) val = 0;
-                else if (avg < 160) val = 128;
-                else if (avg < 220) val = 192;
-                
-                data[j] = val;
-                data[j+1] = val;
-                data[j+2] = val;
-              }
-              pCtx.putImageData(imgData, 0, 0);
-            }
+            const pageImgData = pageCanvas.toDataURL(`image/${format.toLowerCase()}`, quality);
+            pdf.addImage(pageImgData, format, 0, 0, pdfWidth, pagePdfHeight, undefined, 'FAST');
           }
-          
-          const pageImgData = pageCanvas.toDataURL(`image/${format.toLowerCase()}`, quality);
-          pdf.addImage(pageImgData, format, 0, 0, pdfWidth, pagePdfHeight, undefined, 'FAST');
         }
         return pdf;
       };
 
-      if (!isCompressedDoc) {
-        return buildPdf(baseScale, 'JPEG', 0.95, false);
-      }
-
-      // Compression strategy for large documents
-      const TARGET_SIZE = 295 * 1024;
-      let bestPdf: jsPDF | null = null;
+      // Always return Ultra HD PDF
+      return buildPdf(baseScale, 'PNG', 1.0, false);
       
-      const strategies = [
-        { scale: baseScale, format: 'JPEG' as const, q: 0.8, posterize: true },
-        { scale: baseScale * 0.8, format: 'JPEG' as const, q: 0.7, posterize: true },
-        { scale: baseScale * 0.6, format: 'JPEG' as const, q: 0.6, posterize: true },
-        { scale: 1.0, format: 'JPEG' as const, q: 0.5, posterize: false },
-      ];
-
-      for (const strat of strategies) {
-        await new Promise(resolve => setTimeout(resolve, 10));
-        const testPdf = buildPdf(strat.scale, strat.format, strat.q, strat.posterize);
-        const size = testPdf.output('arraybuffer').byteLength;
-        
-        if (size <= TARGET_SIZE) {
-          bestPdf = testPdf;
-          break;
-        }
-      }
-
-      if (!bestPdf) {
-        bestPdf = buildPdf(0.5, 'JPEG', 0.3, false);
-      }
-
-      return bestPdf;
     } catch (err) {
       console.error("Failed to generate PDF", err);
       return null;
     }
-  };
-
-  const savePdfWithPadding = (pdf: jsPDF, filename: string, padToSize?: number) => {
-    try {
-      const pdfBuffer = pdf.output('arraybuffer');
-      if (padToSize && pdfBuffer.byteLength < padToSize) {
-        const paddingSize = padToSize - pdfBuffer.byteLength;
-        const padding = new Uint8Array(paddingSize);
-        const blob = new Blob([pdfBuffer, padding], { type: 'application/pdf' });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(() => {
-          URL.revokeObjectURL(url);
-        }, 10000);
-      } else {
-        pdf.save(filename);
-      }
-    } catch (err) {
-      console.error("Error generating padded PDF, fallback to normal save:", err);
-      pdf.save(filename);
-    }
-  };
-
-  const isCompressedDocType = (docId: string) => {
-    return ['AnnexureI', 'ModelAgreement', 'Annexure3', 'WCR'].includes(docId);
   };
 
   const handleDownloadSingle = async () => {
@@ -308,8 +213,7 @@ export const DocumentViewer: React.FC = () => {
     }
 
     if (pdf) {
-      const padToSize = isCompressedDocType(activeDoc) ? 293 * 1024 : undefined;
-      savePdfWithPadding(pdf, filename, padToSize);
+      pdf.save(filename);
     }
     setLoadingAction(null);
   };
@@ -326,8 +230,7 @@ export const DocumentViewer: React.FC = () => {
       }
 
       if (pdf) {
-        const padToSize = isCompressedDocType(tab.id) ? 293 * 1024 : undefined;
-        savePdfWithPadding(pdf, filename, padToSize);
+        pdf.save(filename);
       }
       await new Promise(resolve => setTimeout(resolve, 300));
     }
@@ -344,45 +247,6 @@ export const DocumentViewer: React.FC = () => {
     }
     setLoadingAction(null);
   };
-
-  const handlePrint = async () => {
-    // Open immediately on click to bypass popup blockers (requires user activation)
-    const newWindow = window.open('', '_blank');
-    if (newWindow) {
-      newWindow.document.write('<html style="font-family: system-ui, sans-serif; text-align: center; margin-top: 100px; color: #333; background: #f8fafc;"><body><h2>Generating PDF for printing...</h2><p>Please wait a moment.</p></body></html>');
-    }
-
-    setLoadingAction('print');
-    
-    let pdf: jsPDF | null = null;
-    if (activeDoc === 'Proposal') {
-      pdf = await runProposalPhotoPdfEngine(`hidden-doc-Proposal`, false);
-    } else {
-      pdf = await generatePDF(`hidden-doc-${activeDoc}`);
-    }
-
-    if (pdf) {
-      pdf.autoPrint();
-      const blob = pdf.output('blob');
-      const blobUrl = URL.createObjectURL(blob);
-      
-      if (newWindow) {
-        newWindow.location.href = blobUrl;
-      } else {
-        // If popup was blocked, tell the user instead of downloading
-        alert("Pop-up blocked! Please allow pop-ups for this site to use the Print button, or use the Download button instead.");
-      }
-      
-      // Cleanup blob url after some time
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
-    } else {
-      if (newWindow) {
-        newWindow.close();
-      }
-    }
-    setLoadingAction(null);
-  };
-
 
   return (
     <div className="flex flex-col h-full print:h-auto print:block relative bg-[#f8fafc]">
@@ -417,7 +281,6 @@ export const DocumentViewer: React.FC = () => {
               Photo PDF (HD)
             </button>
           )}
-
           <button
             onClick={handleDownloadAll}
             disabled={!!loadingAction}
@@ -435,17 +298,25 @@ export const DocumentViewer: React.FC = () => {
             <Download size={18} />
             {loadingAction === 'single' ? 'Generating...' : 'Download'}
           </button>
-
-          <button
-            onClick={handlePrint}
-            disabled={!!loadingAction}
-            className="flex items-center gap-2 px-4 py-2.5 text-sm bg-gray-900 hover:bg-black shadow-md shadow-gray-900/20 text-white rounded-xl font-bold transition-all duration-300 disabled:opacity-50 hover:-translate-y-0.5"
-          >
-            <Printer size={18} />
-            {loadingAction === 'print' ? 'Generating...' : 'Print'}
-          </button>
         </div>
       </div>
+      
+      {/* Global styles for hidden rendering to remove UI gaps/backgrounds */}
+      <style>{`
+        [id^="hidden-doc-"] > div {
+          background-color: white !important;
+          padding: 0 !important;
+        }
+        [id^="hidden-doc-"] .a4-page,
+        [id^="hidden-doc-"] .page {
+          margin-bottom: 0 !important;
+          box-shadow: none !important;
+          border: none !important;
+          height: 297mm !important;
+          max-height: 297mm !important;
+          overflow: hidden !important;
+        }
+      `}</style>
 
       {/* Document Render Area */}
       <div className="flex-1 overflow-y-auto print:overflow-visible p-6 md:p-10 flex justify-center items-start print:p-0 print:block">

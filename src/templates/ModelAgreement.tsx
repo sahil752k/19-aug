@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDate } from '../utils/dateFormatter';
 import { useAppContext } from '../context/AppContext';
 
 export const ModelAgreement: React.FC = () => {
@@ -14,7 +15,7 @@ export const ModelAgreement: React.FC = () => {
       </p>
 
       <p className="mb-4 text-justify">
-        This agreement is executed on <strong>{data.agreementDate}</strong> or design, installation, commissioning and five years comprehensive maintenance of rooftop solar system to be installed under simplified procedure of Rooftop Solar Programme Ph-II.
+        This agreement is executed on <strong>{formatDate(data.agreementDate)}</strong> or design, installation, commissioning and five years comprehensive maintenance of rooftop solar system to be installed under simplified procedure of Rooftop Solar Programme Ph-II.
       </p>
 
       <h3 className="text-center font-bold text-md mb-4">Between</h3>
@@ -25,7 +26,7 @@ export const ModelAgreement: React.FC = () => {
 
       <h3 className="text-center font-bold text-md mb-4">And</h3>
       <p className="mb-6 text-justify">
-        R.S. Bhandari Solar Energy Solutions is registered/ empanelled with the MSEDCL and is having registered/functional office at Washim, Maha.
+        r.s. bhandari Solar Energy Solutions is registered/ empanelled with the MSEDCL and is having registered/functional office at Washim, Maha.
       </p>
 
       <p className="mb-4">Both Applicant and the Vendor are jointly referred as Parties.</p>
@@ -46,7 +47,7 @@ export const ModelAgreement: React.FC = () => {
 
       <h4 className="font-bold mb-2 uppercase">2. RTS System</h4>
       <div className="pl-6 mb-6 space-y-2 text-justify">
-        <p><strong>2.1.</strong> Total capacity of RTS System will be minimum 3.3 kWp.</p>
+        <p><strong>2.1.</strong> Total capacity of RTS System will be minimum {data.sanctionedCapacity} kWp.</p>
         <p><strong>2.2.</strong> The Solar modules, inverters and BoS will confirm to minimum specifications and DCR requirement of MNRE.</p>
         <p><strong>2.3.</strong> Solar modules <strong>{data.moduleMake}</strong> make, DCR-{data.moduleWattage}W capacity each and 22.29% efficiency will be procured and installed by the Vendor</p>
         <p><strong>2.4.</strong> Solar inverter of <strong>{data.inverterMake}</strong> make, {data.inverterModel} , {data.inverterCapacity} kW rated output capacity will be procured and installed by the Vendor.</p>
@@ -175,17 +176,17 @@ export const ModelAgreement: React.FC = () => {
            <p className="font-bold text-lg mb-2">{data.name}</p>
            <div className="h-16 w-48 mb-6 flex items-start">
              {data.customerSignature && (
-               <img src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
+               <img crossOrigin="anonymous" src={data.customerSignature} alt="Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
              )}
            </div>
            
            <p className="font-bold text-lg">1.SUMIT</p>
            <p className="font-bold text-lg">RAJENDRA</p>
-           <p className="font-bold text-lg mb-4">BHANDARI</p>
+           <p className="font-bold text-lg mb-4">bhandari</p>
 
            <div className="h-16 w-32 mb-4 flex items-start relative">
              {data.witnessSignature ? (
-               <img src={data.witnessSignature} alt="Witness Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
+               <img crossOrigin="anonymous" src={data.witnessSignature} alt="Witness Signature" className="w-32 h-16 object-contain mix-blend-multiply" />
              ) : (
                <p className="font-bold text-xl italic text-gray-400 border-b border-gray-400 absolute bottom-0 w-full">Sign</p>
              )}

@@ -1,0 +1,83 @@
+{activeTab === 'WCR' && (
+            <motion.div 
+               key="wcr"
+               initial={{ opacity: 0, scale: 0.98, y: 10 }}
+               animate={{ opacity: 1, scale: 1, y: 0 }}
+               exit={{ opacity: 0, scale: 0.98, y: -10 }}
+               transition={{ duration: 0.3 }}
+               className="space-y-10"
+             >
+               <div className="flex items-center gap-4 pb-5 mb-6 border-b border-gray-100">
+                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-rose-50 to-rose-100 border border-rose-200/50 flex items-center justify-center shadow-inner">
+                   <span className="text-rose-600 font-bold text-2xl drop-shadow-sm">🏠</span>
+                 </div>
+                 <h3 className="text-3xl font-black text-gray-800 tracking-tight">WCR (Work Completion) Data</h3>
+               </div>
+               
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
+                    CUSTOMER INFO
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('Name', 'name', 'text', '', 0)}
+                    {renderField('Consumer number', 'consumerNumber', 'text', '', 1)}
+                    {renderField('Site/Location With Complete Address', 'address', 'text', '', 2)}
+                    {renderField('Email ID', 'emailId', 'text', '', 3)}
+                    {renderField('Mobile number', 'mobileNumber', 'text', '', 4)}
+                  </div>
+               </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
+                    KYC
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-end gap-y-10">
+                    {renderField('Aadhar Number', 'aadhaarNumber', 'text', '', 0)}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                      className="group"
+                    >
+                      <label className="block text-[13px] font-semibold text-gray-700 mb-1.5 uppercase tracking-wide group-hover:text-yellow-600 transition-colors">Aadhaar Image (PNG/JPG)</label>
+                      <div className="flex items-center gap-4 mt-2">
+                        <input type="file" accept="image/*" onChange={handleImageUpload} ref={fileInputRef} className="hidden" />
+                        <button onClick={() => fileInputRef.current?.click()} className="flex items-center gap-2 px-6 py-3 border-2 border-dashed border-gray-300 rounded-xl bg-white hover:bg-yellow-50 hover:border-yellow-400 hover:text-yellow-700 hover:shadow-md font-bold transition-all duration-300 text-gray-600">
+                          {data.aadhaarImage ? <><span className="text-xl">🔄</span> Change File</> : <><span className="text-xl">📎</span> Drop Image Here</>}
+                        </button>
+                        {data.aadhaarImage && <span className="text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-2 rounded-full text-sm font-bold flex items-center gap-2 shadow-sm"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981] inline-block animate-pulse"></span> Uploaded</span>}
+                      </div>
+                    </motion.div>
+                  </div>
+               </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
+                    CAPACITIES & DATES
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('Sanctioned Capacity of solar PV system (KW)', 'sanctionedCapacity', 'number', '', 0)}
+                    {renderField('Capacity of solar PV system (KW)', 'installedCapacity', 'number', '', 1)}
+                    {renderField('Installation Date', 'installationDate', 'date', '', 2)}
+                  </div>
+               </div>
+
+               <div className="bg-gradient-to-b from-gray-50/50 to-white p-8 rounded-[2rem] border border-gray-100 shadow-[0_4px_24px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.06)] transition-shadow duration-300">
+                 <h4 className="text-xs tracking-[0.25em] font-black text-gray-400 mb-8 flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-lg bg-rose-100 flex items-center justify-center border border-rose-200"><div className="w-2 h-2 bg-rose-500 rounded-full shadow-[0_0_8px_#f43f5e]"></div></span> 
+                    EQUIPMENT
+                 </h4>
+                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 gap-y-10">
+                    {renderField('Make of Module', 'moduleMake', 'text', '', 0)}
+                    {renderField('ALMM Model Number', 'moduleModel', 'text', '', 1)}
+                    {renderField('Wattage per module', 'moduleWattage', 'number', '', 2)}
+                    {renderField('No. of Module', 'numberOfModules', 'number', '', 3)}
+                    {renderField('Make of Inverter', 'inverterMake', 'text', '', 4)}
+                    {renderField('Model Number of Inverter', 'inverterModel', 'text', '', 5)}
+                    {renderField('Capacity of Inverter', 'inverterCapacity', 'number', '', 6)}
+                  </div>
+ 
+              </div>
+            </motion.div>
+          )}
